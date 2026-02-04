@@ -2,10 +2,14 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>VenonRoblox</title>
+<title>VenonRoblox – Complete Platform</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Complete Roblox license & marketplace platform">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
 <style>
 :root {
   --bg: #0b0f1a; --bg-2: #020617; --card: #12172a; --accent: #5865f2;
@@ -402,71 +406,6 @@ footer {
   </div>
 </section>
 
-<!-- Features -->
-<section id="features" class="hidden container p-6">
-  <h2 class="text-center mb-4">Powerful Features</h2>
-  <div class="grid grid-cols-3">
-    <div class="card">
-      <div class="badge badge-primary">API</div>
-      <h3 class="card-title">Venon API</h3>
-      <p class="card-desc">Integrate license validation directly into your Roblox games with our secure API.</p>
-    </div>
-    <div class="card">
-      <div class="badge badge-success">AUTOMATION</div>
-      <h3 class="card-title">Bot Integration</h3>
-      <p class="card-desc">Automate license delivery, customer support, and moderation with Discord bots.</p>
-    </div>
-    <div class="card">
-      <div class="badge badge-warning">SECURITY</div>
-      <h3 class="card-title">Secure Licensing</h3>
-      <p class="card-desc">Advanced anti-leak protection, HWID locking, and IP-based security.</p>
-    </div>
-  </div>
-</section>
-
-<!-- Pricing -->
-<section id="pricing" class="hidden container p-6">
-  <h2 class="text-center mb-4">Simple Pricing</h2>
-  <div class="grid grid-cols-3">
-    <div class="card text-center">
-      <h3 class="card-title">Free</h3>
-      <div class="stat-value">$0</div>
-      <ul style="text-align: left; margin: 1rem 0;">
-        <li>✓ 3 Marketplaces</li>
-        <li>✓ 100 API Requests/Day</li>
-        <li>✓ Basic Bot</li>
-        <li>✓ Community Support</li>
-      </ul>
-      <button class="btn btn-secondary w-full" onclick="showSection('register')">Get Started</button>
-    </div>
-    <div class="card text-center" style="border-color: var(--accent);">
-      <div class="badge badge-primary">POPULAR</div>
-      <h3 class="card-title">Pro</h3>
-      <div class="stat-value">$9.99<span style="font-size: 1rem; color: var(--muted);">/month</span></div>
-      <ul style="text-align: left; margin: 1rem 0;">
-        <li>✓ 15 Marketplaces</li>
-        <li>✓ 5,000 API Requests/Day</li>
-        <li>✓ Advanced Bot</li>
-        <li>✓ Priority Support</li>
-        <li>✓ Webhook Support</li>
-      </ul>
-      <button class="btn btn-primary w-full" onclick="showSection('register')">Upgrade to Pro</button>
-    </div>
-    <div class="card text-center">
-      <h3 class="card-title">Enterprise</h3>
-      <div class="stat-value">$29.99<span style="font-size: 1rem; color: var(--muted);">/month</span></div>
-      <ul style="text-align: left; margin: 1rem 0;">
-        <li>✓ Unlimited Marketplaces</li>
-        <li>✓ 50,000 API Requests/Day</li>
-        <li>✓ Full Bot Customization</li>
-        <li>✓ 24/7 Support</li>
-        <li>✓ Custom Development</li>
-      </ul>
-      <button class="btn btn-secondary w-full" onclick="showSection('register')">Contact Sales</button>
-    </div>
-  </div>
-</section>
-
 <!-- Login/Register -->
 <section id="login" class="hidden container p-6" style="max-width: 400px;">
   <div class="card">
@@ -520,661 +459,67 @@ footer {
   </div>
 </section>
 
-<!-- Dashboard -->
-<section id="dashboard" class="hidden container p-6">
-  <div class="dashboard-header">
-    <h2>Dashboard</h2>
-    <p style="color: var(--muted);">Welcome, <span id="userName">User</span></p>
-  </div>
-
-  <!-- Stats -->
-  <div class="stats-grid">
-    <div class="stat-card card">
-      <div class="stat-value" id="totalSites">0</div>
-      <div class="stat-label">Marketplaces</div>
-    </div>
-    <div class="stat-card card">
-      <div class="stat-value" id="totalLicenses">0</div>
-      <div class="stat-label">Licenses</div>
-    </div>
-    <div class="stat-card card">
-      <div class="stat-value" id="apiCalls">0</div>
-      <div class="stat-label">API Calls Today</div>
-    </div>
-    <div class="stat-card card">
-      <div class="stat-value" id="revenue">$0</div>
-      <div class="stat-label">Total Revenue</div>
-    </div>
-  </div>
-
-  <!-- Tabs -->
-  <div class="tabs">
-    <button class="tab active" onclick="showTab('marketplaces')">Marketplaces</button>
-    <button class="tab" onclick="showTab('licenses')">Licenses</button>
-    <button class="tab" onclick="showTab('api')">API</button>
-    <button class="tab" onclick="showTab('settings')">Settings</button>
-  </div>
-
-  <!-- Marketplaces Tab -->
-  <div id="marketplacesTab">
-    <div class="flex justify-between items-center mb-4">
-      <h3>Your Marketplaces</h3>
-      <button class="btn btn-primary" onclick="showModal('createSiteModal')">
-        <i class="fas fa-plus"></i> Create Marketplace
-      </button>
-    </div>
-    <div id="sitesList" class="grid grid-cols-2"></div>
-  </div>
-
-  <!-- Licenses Tab -->
-  <div id="licensesTab" class="hidden">
-    <div class="flex justify-between items-center mb-4">
-      <h3>License Management</h3>
-      <button class="btn btn-primary" onclick="showModal('createLicenseModal')">
-        <i class="fas fa-key"></i> Generate License
-      </button>
-    </div>
-    <div class="table-container">
-      <table>
-        <thead>
-          <tr>
-            <th>License Key</th>
-            <th>Product</th>
-            <th>Created</th>
-            <th>Expires</th>
-            <th>Status</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody id="licensesTable">
-          <!-- Filled by JavaScript -->
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  <!-- API Tab -->
-  <div id="apiTab" class="hidden">
-    <div class="card">
-      <h3 class="card-title">API Configuration</h3>
-      <p class="card-desc mb-4">Use your API key to validate licenses from your Roblox game.</p>
-      
-      <div class="input-group">
-        <label>Your API Key</label>
-        <div class="api-key" id="apiKeyDisplay">Generate your first API key to get started</div>
-        <button class="btn btn-secondary" onclick="generateApiKey()">
-          <i class="fas fa-sync-alt"></i> Generate New Key
-        </button>
-      </div>
-
-      <div class="input-group mt-4">
-        <label>API Endpoints</label>
-        <div class="api-key">POST https://api.venonroblox.com/validate</div>
-        <div class="api-key">POST https://api.venonroblox.com/create</div>
-        <div class="api-key">GET https://api.venonroblox.com/licenses</div>
-      </div>
-
-      <div class="card mt-4">
-        <h4>Example Usage (Roblox Lua)</h4>
-        <pre style="background: var(--bg-2); padding: 1rem; border-radius: 8px; overflow-x: auto;">
-local HttpService = game:GetService("HttpService")
-local API_URL = "https://api.venonroblox.com/validate"
-local API_KEY = "your_api_key_here"
-
-function validateLicense(licenseKey)
-    local response = HttpService:PostAsync(API_URL, HttpService:JSONEncode({
-        apiKey = API_KEY,
-        license = licenseKey,
-        hwid = game:GetService("RbxAnalyticsService"):GetClientId()
-    }), Enum.HttpContentType.ApplicationJson)
-    
-    local data = HttpService:JSONDecode(response)
-    return data.valid
-end</pre>
-      </div>
-    </div>
-  </div>
-
-  <!-- Settings Tab -->
-  <div id="settingsTab" class="hidden">
-    <div class="grid grid-cols-2">
-      <div class="card">
-        <h3 class="card-title">Account Settings</h3>
-        <div class="input-group">
-          <label>Username</label>
-          <input type="text" id="settingsUsername" placeholder="Username">
-        </div>
-        <div class="input-group">
-          <label>Email</label>
-          <input type="email" id="settingsEmail" placeholder="Email">
-        </div>
-        <button class="btn btn-primary" onclick="updateProfile()">Save Changes</button>
-      </div>
-      
-      <div class="card">
-        <h3 class="card-title">Security</h3>
-        <div class="input-group">
-          <label>New Password</label>
-          <input type="password" id="newPassword" placeholder="New password">
-        </div>
-        <div class="input-group">
-          <label>Confirm New Password</label>
-          <input type="password" id="confirmNewPassword" placeholder="Confirm new password">
-        </div>
-        <button class="btn btn-secondary" onclick="updatePassword()">Update Password</button>
-      </div>
-    </div>
-    
-    <div class="card mt-4">
-      <h3 class="card-title">Danger Zone</h3>
-      <p class="card-desc mb-4">Once you delete your account, there is no going back.</p>
-      <button class="btn btn-danger" onclick="deleteAccount()">
-        <i class="fas fa-trash"></i> Delete Account
-      </button>
-    </div>
+<!-- Features (Vereinfacht) -->
+<section id="features" class="hidden container p-6">
+  <h2 class="text-center mb-4">Features Coming Soon</h2>
+  <div class="card">
+    <p class="text-center">Complete dashboard will be available after login</p>
   </div>
 </section>
 
-<!-- Modals -->
-<div id="createSiteModal" class="modal hidden">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h3>Create Marketplace</h3>
-      <button class="modal-close" onclick="closeModal()">&times;</button>
-    </div>
-    <div class="modal-body">
-      <div class="input-group">
-        <label>Marketplace Name</label>
-        <input type="text" id="siteNameInput" placeholder="My Awesome Shop">
-      </div>
-      <div class="input-group">
-        <label>Description</label>
-        <textarea id="siteDescription" rows="3" placeholder="Describe your marketplace..."></textarea>
-      </div>
-      <div class="input-group">
-        <label>Category</label>
-        <select id="siteCategory">
-          <option value="script">Script</option>
-          <option value="model">3D Model</option>
-          <option value="plugin">Plugin</option>
-          <option value="ui">UI Library</option>
-          <option value="other">Other</option>
-        </select>
-      </div>
-      <button class="btn btn-primary w-full" onclick="createMarketplace()">Create Marketplace</button>
-    </div>
-  </div>
-</div>
-
-<div id="createLicenseModal" class="modal hidden">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h3>Generate License Key</h3>
-      <button class="modal-close" onclick="closeModal()">&times;</button>
-    </div>
-    <div class="modal-body">
-      <div class="input-group">
-        <label>Product</label>
-        <select id="licenseProduct">
-          <option value="">Select a marketplace</option>
-        </select>
-      </div>
-      <div class="input-group">
-        <label>Expiration</label>
-        <select id="licenseExpiration">
-          <option value="1">1 Day</option>
-          <option value="7">1 Week</option>
-          <option value="30" selected>1 Month</option>
-          <option value="90">3 Months</option>
-          <option value="365">1 Year</option>
-          <option value="0">Lifetime</option>
-        </select>
-      </div>
-      <div class="input-group">
-        <label>HWID Locked</label>
-        <select id="licenseHWID">
-          <option value="true">Yes</option>
-          <option value="false" selected>No</option>
-        </select>
-      </div>
-      <div class="input-group">
-        <label>Note (Optional)</label>
-        <input type="text" id="licenseNote" placeholder="Customer name or note...">
-      </div>
-      <button class="btn btn-primary w-full" onclick="generateLicense()">Generate License</button>
-    </div>
-  </div>
-</div>
-
-<div id="licenseGeneratedModal" class="modal hidden">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h3>License Generated</h3>
-      <button class="modal-close" onclick="closeModal()">&times;</button>
-    </div>
-    <div class="modal-body">
-      <div class="alert alert-success">
-        <i class="fas fa-check-circle"></i> License created successfully!
-      </div>
-      <div class="input-group">
-        <label>License Key</label>
-        <div class="api-key" id="generatedLicenseKey">Loading...</div>
-      </div>
-      <p class="card-desc mt-2">Save this key securely. It won't be shown again.</p>
-      <button class="btn btn-secondary w-full mt-4" onclick="copyToClipboard('generatedLicenseKey')">
-        <i class="fas fa-copy"></i> Copy to Clipboard
-      </button>
-    </div>
-  </div>
-</div>
-
 <footer>
   <div class="container">
-    <div class="grid grid-cols-4">
-      <div>
-        <div class="logo mb-2">VenonRoblox</div>
-        <p style="color: var(--muted); font-size: 0.875rem;">Advanced Roblox marketplace platform</p>
-      </div>
-      <div>
-        <h4>Product</h4>
-        <a href="#features" onclick="showSection('features')">Features</a><br>
-        <a href="#pricing" onclick="showSection('pricing')">Pricing</a><br>
-        <a href="#docs" onclick="showSection('docs')">Documentation</a>
-      </div>
-      <div>
-        <h4>Company</h4>
-        <a href="#">About</a><br>
-        <a href="#">Blog</a><br>
-        <a href="#">Contact</a>
-      </div>
-      <div>
-        <h4>Legal</h4>
-        <a href="#">Privacy Policy</a><br>
-        <a href="#">Terms of Service</a><br>
-        <a href="#">Cookie Policy</a>
-      </div>
-    </div>
-    <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--border);">
-      © 2024 VenonRoblox. All rights reserved. Not affiliated with Roblox Corporation.
+    <div class="text-center">
+      <div class="logo mb-2">VenonRoblox</div>
+      <p style="color: var(--muted);">© 2024 VenonRoblox. All rights reserved.</p>
     </div>
   </div>
 </footer>
 
 <script>
-// Firebase Configuration
+// ===================== FIREBASE INITIALISIERUNG =====================
+// DEINE Firebase-Konfiguration (ersetze mit deinen eigenen Daten!)
 const firebaseConfig = {
   apiKey: "AIzaSyCNY2kHYcYUNVx8ZcnhZN34WZKkGk55bi0",
   authDomain: "venonroblox-291da.firebaseapp.com",
+  databaseURL: "https://venonroblox-291da-default-rtdb.firebaseio.com",
   projectId: "venonroblox-291da",
   storageBucket: "venonroblox-291da.firebasestorage.app",
   messagingSenderId: "208806389418",
   appId: "1:208806389418:web:5eea9b863a79780061d2d3"
 };
 
-// State Management
-let currentUser = null;
-let userData = {};
-let sites = [];
-let licenses = [];
-
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
+// Firebase initialisieren
+const app = firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
-const db = firebase.firestore();
+const database = firebase.database();
 
-// Navigation Functions
+// ===================== GLOBALE VARIABLEN =====================
+let currentUser = null;
+
+// ===================== NAVIGATIONS-FUNKTIONEN =====================
 function showSection(sectionId) {
+  // Alle Sections verstecken
   document.querySelectorAll('section').forEach(s => s.classList.add('hidden'));
-  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
   
+  // Navigation aktualisieren
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+  const navLink = document.querySelector(`.nav-links a[href="#${sectionId}"]`);
+  if (navLink) navLink.classList.add('active');
+  
+  // Gewünschte Section anzeigen
   const section = document.getElementById(sectionId);
   if (section) {
     section.classList.remove('hidden');
-    const navLink = document.querySelector(`.nav-links a[href="#${sectionId}"]`);
-    if (navLink) navLink.classList.add('active');
   }
   
+  // Wenn Dashboard, Daten laden
   if (sectionId === 'dashboard' && currentUser) {
-    loadDashboardData();
+    loadUserData();
   }
 }
 
-function showTab(tabId) {
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('#marketplacesTab, #licensesTab, #apiTab, #settingsTab').forEach(t => t.classList.add('hidden'));
-  
-  event.target.classList.add('active');
-  document.getElementById(tabId + 'Tab').classList.remove('hidden');
-}
-
-function showModal(modalId) {
-  document.getElementById(modalId).classList.remove('hidden');
-}
-
-function closeModal() {
-  document.querySelectorAll('.modal').forEach(m => m.classList.add('hidden'));
-}
-
-// Authentication Functions
-async function loginUser() {
-  const email = document.getElementById('loginEmail').value;
-  const password = document.getElementById('loginPassword').value;
-  const alert = document.getElementById('loginAlert');
-  
-  try {
-    const userCredential = await auth.signInWithEmailAndPassword(email, password);
-    currentUser = userCredential.user;
-    await loadUserData();
-    
-    alert.classList.remove('alert-error');
-    alert.classList.add('alert-success');
-    alert.innerHTML = '<i class="fas fa-check-circle"></i> Login successful!';
-    alert.classList.remove('hidden');
-    
-    setTimeout(() => {
-      showSection('dashboard');
-      updateNav();
-    }, 1000);
-  } catch (error) {
-    alert.classList.remove('alert-success');
-    alert.classList.add('alert-error');
-    alert.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${error.message}`;
-    alert.classList.remove('hidden');
-  }
-}
-
-async function registerUser() {
-  const username = document.getElementById('registerUsername').value;
-  const email = document.getElementById('registerEmail').value;
-  const password = document.getElementById('registerPassword').value;
-  const confirmPassword = document.getElementById('registerConfirmPassword').value;
-  const alert = document.getElementById('registerAlert');
-  
-  if (password !== confirmPassword) {
-    alert.classList.add('alert-error');
-    alert.innerHTML = '<i class="fas fa-exclamation-circle"></i> Passwords do not match!';
-    alert.classList.remove('hidden');
-    return;
-  }
-  
-  try {
-    const userCredential = await auth.createUserWithEmailAndPassword(email, password);
-    currentUser = userCredential.user;
-    
-    // Create user document
-    await db.collection('users').doc(currentUser.uid).set({
-      username,
-      email,
-      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-      plan: 'free',
-      apiKey: generateRandomKey(32)
-    });
-    
-    alert.classList.remove('alert-error');
-    alert.classList.add('alert-success');
-    alert.innerHTML = '<i class="fas fa-check-circle"></i> Account created successfully!';
-    alert.classList.remove('hidden');
-    
-    setTimeout(() => {
-      showSection('dashboard');
-      updateNav();
-    }, 1000);
-  } catch (error) {
-    alert.classList.remove('alert-success');
-    alert.classList.add('alert-error');
-    alert.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${error.message}`;
-    alert.classList.remove('hidden');
-  }
-}
-
-async function logout() {
-  await auth.signOut();
-  currentUser = null;
-  showSection('home');
-  updateNav();
-}
-
-// Dashboard Functions
-async function loadUserData() {
-  if (!currentUser) return;
-  
-  const userDoc = await db.collection('users').doc(currentUser.uid).get();
-  userData = userDoc.data();
-  
-  document.getElementById('userName').textContent = userData.username || currentUser.email;
-  document.getElementById('settingsUsername').value = userData.username || '';
-  document.getElementById('settingsEmail').value = currentUser.email;
-  document.getElementById('apiKeyDisplay').textContent = userData.apiKey || 'No API key generated';
-}
-
-async function loadDashboardData() {
-  if (!currentUser) return;
-  
-  await loadUserData();
-  
-  // Load sites
-  const sitesSnapshot = await db.collection('sites')
-    .where('owner', '==', currentUser.uid)
-    .get();
-  
-  sites = [];
-  sitesSnapshot.forEach(doc => {
-    sites.push({ id: doc.id, ...doc.data() });
-  });
-  
-  document.getElementById('totalSites').textContent = sites.length;
-  renderSites();
-  
-  // Load licenses
-  const licensesSnapshot = await db.collection('licenses')
-    .where('owner', '==', currentUser.uid)
-    .get();
-  
-  licenses = [];
-  licensesSnapshot.forEach(doc => {
-    licenses.push({ id: doc.id, ...doc.data() });
-  });
-  
-  document.getElementById('totalLicenses').textContent = licenses.length;
-  renderLicenses();
-  
-  // Update product dropdown
-  const productSelect = document.getElementById('licenseProduct');
-  productSelect.innerHTML = '<option value="">Select a marketplace</option>';
-  sites.forEach(site => {
-    const option = document.createElement('option');
-    option.value = site.id;
-    option.textContent = site.name;
-    productSelect.appendChild(option);
-  });
-}
-
-function renderSites() {
-  const container = document.getElementById('sitesList');
-  container.innerHTML = '';
-  
-  sites.forEach(site => {
-    const card = document.createElement('div');
-    card.className = 'card';
-    card.innerHTML = `
-      <div class="flex justify-between items-start">
-        <div>
-          <h4>${site.name}</h4>
-          <p class="card-desc">${site.description || 'No description'}</p>
-          <span class="badge badge-primary">${site.category || 'script'}</span>
-        </div>
-        <div class="flex gap-2">
-          <button class="btn btn-secondary" onclick="viewSite('${site.id}')">
-            <i class="fas fa-eye"></i>
-          </button>
-          <button class="btn btn-danger" onclick="deleteSite('${site.id}')">
-            <i class="fas fa-trash"></i>
-          </button>
-        </div>
-      </div>
-      <div class="mt-4">
-        <small style="color: var(--muted);">URL: https://venon.pw/${site.id}</small>
-      </div>
-    `;
-    container.appendChild(card);
-  });
-}
-
-function renderLicenses() {
-  const tbody = document.getElementById('licensesTable');
-  tbody.innerHTML = '';
-  
-  licenses.forEach(license => {
-    const row = document.createElement('tr');
-    const expires = license.expires ? new Date(license.expires).toLocaleDateString() : 'Never';
-    const status = license.active ? 'Active' : 'Inactive';
-    
-    row.innerHTML = `
-      <td><code style="font-size: 0.75rem;">${license.key}</code></td>
-      <td>${license.productName || 'Unknown'}</td>
-      <td>${new Date(license.created).toLocaleDateString()}</td>
-      <td>${expires}</td>
-      <td><span class="badge ${license.active ? 'badge-success' : 'badge-warning'}">${status}</span></td>
-      <td>
-        <button class="btn btn-secondary" onclick="copyLicense('${license.key}')">
-          <i class="fas fa-copy"></i>
-        </button>
-        <button class="btn btn-danger" onclick="revokeLicense('${license.id}')">
-          <i class="fas fa-ban"></i>
-        </button>
-      </td>
-    `;
-    tbody.appendChild(row);
-  });
-}
-
-async function createMarketplace() {
-  if (!currentUser) return;
-  
-  const name = document.getElementById('siteNameInput').value;
-  const description = document.getElementById('siteDescription').value;
-  const category = document.getElementById('siteCategory').value;
-  
-  if (!name) {
-    alert('Please enter a marketplace name');
-    return;
-  }
-  
-  const siteData = {
-    name,
-    description,
-    category,
-    owner: currentUser.uid,
-    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-    url: name.toLowerCase().replace(/\s+/g, '-')
-  };
-  
-  try {
-    await db.collection('sites').add(siteData);
-    closeModal();
-    loadDashboardData();
-  } catch (error) {
-    alert('Error creating marketplace: ' + error.message);
-  }
-}
-
-async function generateLicense() {
-  if (!currentUser) return;
-  
-  const productId = document.getElementById('licenseProduct').value;
-  const expirationDays = parseInt(document.getElementById('licenseExpiration').value);
-  const hwidLocked = document.getElementById('licenseHWID').value === 'true';
-  const note = document.getElementById('licenseNote').value;
-  
-  if (!productId) {
-    alert('Please select a product');
-    return;
-  }
-  
-  const product = sites.find(s => s.id === productId);
-  if (!product) return;
-  
-  const licenseKey = generateRandomKey(24);
-  let expires = null;
-  
-  if (expirationDays > 0) {
-    expires = new Date();
-    expires.setDate(expires.getDate() + expirationDays);
-  }
-  
-  const licenseData = {
-    key: licenseKey,
-    productId,
-    productName: product.name,
-    owner: currentUser.uid,
-    hwidLocked,
-    note,
-    expires: expires ? expires.toISOString() : null,
-    created: firebase.firestore.FieldValue.serverTimestamp(),
-    active: true
-  };
-  
-  try {
-    await db.collection('licenses').add(licenseData);
-    
-    document.getElementById('generatedLicenseKey').textContent = licenseKey;
-    closeModal();
-    showModal('licenseGeneratedModal');
-    loadDashboardData();
-  } catch (error) {
-    alert('Error generating license: ' + error.message);
-  }
-}
-
-async function generateApiKey() {
-  if (!currentUser) return;
-  
-  const newKey = generateRandomKey(32);
-  await db.collection('users').doc(currentUser.uid).update({
-    apiKey: newKey
-  });
-  
-  document.getElementById('apiKeyDisplay').textContent = newKey;
-}
-
-// Utility Functions
-function generateRandomKey(length) {
-  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  let result = '';
-  for (let i = 0; i < length; i++) {
-    result += chars.charAt(Math.floor(Math.random() * chars.length));
-  }
-  return result;
-}
-
-function copyToClipboard(elementId) {
-  const text = document.getElementById(elementId).textContent;
-  navigator.clipboard.writeText(text).then(() => {
-    alert('Copied to clipboard!');
-  });
-}
-
-function copyLicense(key) {
-  navigator.clipboard.writeText(key).then(() => {
-    alert('License key copied!');
-  });
-}
-
-async function deleteSite(siteId) {
-  if (confirm('Are you sure you want to delete this marketplace?')) {
-    await db.collection('sites').doc(siteId).delete();
-    loadDashboardData();
-  }
-}
-
-async function revokeLicense(licenseId) {
-  if (confirm('Are you sure you want to revoke this license?')) {
-    await db.collection('licenses').doc(licenseId).update({ active: false });
-    loadDashboardData();
-  }
-}
-
-function updateNav() {
+function updateNavigation() {
   if (currentUser) {
     document.getElementById('loginNav').classList.add('hidden');
     document.getElementById('dashboardNav').classList.remove('hidden');
@@ -1184,33 +529,238 @@ function updateNav() {
   }
 }
 
-// Auth State Listener
-auth.onAuthStateChanged(user => {
-  currentUser = user;
-  updateNav();
+// ===================== AUTHENTIFIZIERUNGS-FUNKTIONEN =====================
+async function registerUser() {
+  const username = document.getElementById('registerUsername').value.trim();
+  const email = document.getElementById('registerEmail').value.trim();
+  const password = document.getElementById('registerPassword').value;
+  const confirmPassword = document.getElementById('registerConfirmPassword').value;
+  const alert = document.getElementById('registerAlert');
   
-  if (user) {
-    showSection('dashboard');
-  } else {
-    showSection('home');
+  // Validierung
+  if (!username || !email || !password) {
+    showAlert(alert, 'error', 'Please fill in all fields');
+    return;
   }
-});
+  
+  if (password !== confirmPassword) {
+    showAlert(alert, 'error', 'Passwords do not match');
+    return;
+  }
+  
+  if (password.length < 6) {
+    showAlert(alert, 'error', 'Password must be at least 6 characters');
+    return;
+  }
+  
+  try {
+    showAlert(alert, 'warning', 'Creating account...', false);
+    
+    // 1. Benutzer in Firebase Auth erstellen
+    const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+    currentUser = userCredential.user;
+    
+    // 2. Benutzerdaten in Realtime Database speichern
+    await database.ref('users/' + currentUser.uid).set({
+      username: username,
+      email: email,
+      plan: 'free',
+      apiKey: generateApiKey(),
+      createdAt: Date.now(),
+      lastLogin: Date.now()
+    });
+    
+    showAlert(alert, 'success', 'Account created successfully!');
+    
+    // Nach 1 Sekunde zum Dashboard navigieren
+    setTimeout(() => {
+      showSection('dashboard');
+      updateNavigation();
+    }, 1000);
+    
+  } catch (error) {
+    let errorMessage = 'Registration failed';
+    
+    // Firebase-Fehler übersetzen
+    switch (error.code) {
+      case 'auth/email-already-in-use':
+        errorMessage = 'Email is already registered';
+        break;
+      case 'auth/invalid-email':
+        errorMessage = 'Invalid email address';
+        break;
+      case 'auth/weak-password':
+        errorMessage = 'Password is too weak';
+        break;
+      case 'auth/network-request-failed':
+        errorMessage = 'Network error. Check your connection';
+        break;
+      default:
+        errorMessage = error.message;
+    }
+    
+    showAlert(alert, 'error', errorMessage);
+  }
+}
 
-// Initialize
-document.addEventListener('DOMContentLoaded', () => {
+async function loginUser() {
+  const email = document.getElementById('loginEmail').value.trim();
+  const password = document.getElementById('loginPassword').value;
+  const alert = document.getElementById('loginAlert');
+  
+  if (!email || !password) {
+    showAlert(alert, 'error', 'Please fill in all fields');
+    return;
+  }
+  
+  try {
+    showAlert(alert, 'warning', 'Logging in...', false);
+    
+    const userCredential = await auth.signInWithEmailAndPassword(email, password);
+    currentUser = userCredential.user;
+    
+    // Last login aktualisieren
+    await database.ref('users/' + currentUser.uid + '/lastLogin').set(Date.now());
+    
+    showAlert(alert, 'success', 'Login successful!');
+    
+    setTimeout(() => {
+      showSection('dashboard');
+      updateNavigation();
+    }, 1000);
+    
+  } catch (error) {
+    let errorMessage = 'Login failed';
+    
+    switch (error.code) {
+      case 'auth/user-not-found':
+      case 'auth/wrong-password':
+        errorMessage = 'Invalid email or password';
+        break;
+      case 'auth/invalid-email':
+        errorMessage = 'Invalid email address';
+        break;
+      case 'auth/too-many-requests':
+        errorMessage = 'Too many attempts. Try again later';
+        break;
+      case 'auth/network-request-failed':
+        errorMessage = 'Network error. Check your connection';
+        break;
+      default:
+        errorMessage = error.message;
+    }
+    
+    showAlert(alert, 'error', errorMessage);
+  }
+}
+
+async function logout() {
+  try {
+    await auth.signOut();
+    currentUser = null;
+    showSection('home');
+    updateNavigation();
+  } catch (error) {
+    console.error('Logout error:', error);
+  }
+}
+
+// ===================== HELFER-FUNKTIONEN =====================
+function showAlert(alertElement, type, message, autoHide = true) {
+  alertElement.textContent = message;
+  alertElement.className = 'alert';
+  
+  switch (type) {
+    case 'success':
+      alertElement.classList.add('alert-success');
+      alertElement.innerHTML = '<i class="fas fa-check-circle"></i> ' + message;
+      break;
+    case 'error':
+      alertElement.classList.add('alert-error');
+      alertElement.innerHTML = '<i class="fas fa-exclamation-circle"></i> ' + message;
+      break;
+    case 'warning':
+      alertElement.classList.add('alert-warning');
+      alertElement.innerHTML = '<i class="fas fa-exclamation-triangle"></i> ' + message;
+      break;
+  }
+  
+  alertElement.classList.remove('hidden');
+  
+  if (autoHide && type !== 'error') {
+    setTimeout(() => {
+      alertElement.classList.add('hidden');
+    }, 3000);
+  }
+}
+
+function generateApiKey() {
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let result = '';
+  for (let i = 0; i < 32; i++) {
+    result += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return result;
+}
+
+async function loadUserData() {
+  if (!currentUser) return;
+  
+  try {
+    const snapshot = await database.ref('users/' + currentUser.uid).once('value');
+    const userData = snapshot.val();
+    
+    if (userData) {
+      // Hier kannst du Dashboard-Daten anzeigen
+      console.log('User data loaded:', userData);
+    }
+  } catch (error) {
+    console.error('Error loading user data:', error);
+  }
+}
+
+// ===================== EVENT LISTENER =====================
+document.addEventListener('DOMContentLoaded', function() {
+  // Standardmäßig Home anzeigen
   showSection('home');
   
-  // Close modal on outside click
-  document.querySelectorAll('.modal').forEach(modal => {
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) closeModal();
+  // Auth State Listener
+  auth.onAuthStateChanged((user) => {
+    currentUser = user;
+    updateNavigation();
+    
+    if (user) {
+      // Automatisch zum Dashboard wenn eingeloggt
+      showSection('dashboard');
+    } else {
+      // Zur Startseite wenn ausgeloggt
+      if (!window.location.hash || window.location.hash === '#home') {
+        showSection('home');
+      }
+    }
+  });
+  
+  // Hash Change Listener für Navigation
+  window.addEventListener('hashchange', function() {
+    const hash = window.location.hash.substring(1) || 'home';
+    showSection(hash);
+  });
+  
+  // Form Submit verhindern
+  document.querySelectorAll('input').forEach(input => {
+    input.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+      }
     });
   });
 });
-</script>
 
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+// ===================== GLOBALE FUNKTIONEN =====================
+window.showSection = showSection;
+window.loginUser = loginUser;
+window.registerUser = registerUser;
+window.logout = logout;
+</script>
 </body>
 </html>

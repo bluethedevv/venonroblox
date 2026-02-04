@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>VenonRoblox – Complete Platform</title>
+<title>VenonRoblox</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Complete Roblox license & marketplace platform">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -12,82 +12,211 @@
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
 <style>
 :root {
-  --bg: #0b0f1a; --bg-2: #020617; --card: #12172a; --accent: #5865f2;
-  --accent-2: #22c55e; --danger: #ef4444; --warning: #f59e0b; 
-  --text: #e5e7eb; --muted: #9ca3af; --border: #1f2937; --success: #10b981;
+  --bg: #0a0a0f;
+  --bg-2: #11111a;
+  --card: #1a1a26;
+  --card-hover: #212130;
+  --accent: #6c5ce7;
+  --accent-hover: #5b4bdf;
+  --accent-2: #00d2d3;
+  --danger: #ff4757;
+  --danger-hover: #ff3742;
+  --success: #1dd1a1;
+  --text: #ffffff;
+  --text-muted: #a0a0c0;
+  --border: #2a2a3a;
+  --border-light: #3a3a4a;
+  --shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
-* { box-sizing: border-box; font-family: 'Segoe UI', system-ui, sans-serif; margin: 0; }
-body { background: var(--bg); color: var(--text); min-height: 100vh; }
-a { text-decoration: none; color: inherit; }
-.hidden { display: none !important; }
-.flex { display: flex; }
-.flex-col { flex-direction: column; }
-.items-center { align-items: center; }
-.justify-between { justify-content: space-between; }
-.gap-4 { gap: 1rem; }
-.p-4 { padding: 1rem; }
-.p-6 { padding: 1.5rem; }
-.mt-4 { margin-top: 1rem; }
-.mb-4 { margin-bottom: 1rem; }
-.text-center { text-align: center; }
-.w-full { width: 100%; }
-.container { max-width: 1200px; margin: 0 auto; }
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Glow Effekte */
+.glow {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.1;
+  z-index: -1;
+}
+
+.glow-1 {
+  background: var(--accent);
+  top: 10%;
+  left: 10%;
+}
+
+.glow-2 {
+  background: var(--accent-2);
+  bottom: 10%;
+  right: 10%;
+}
 
 /* Header */
 header {
-  position: sticky;
+  position: fixed;
   top: 0;
-  z-index: 100;
-  background: rgba(11, 15, 26, 0.95);
-  backdrop-filter: blur(10px);
+  width: 100%;
+  background: rgba(10, 10, 15, 0.9);
+  backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--border);
-  padding: 1rem 0;
+  z-index: 1000;
+  padding: 0 2rem;
 }
-.nav {
+
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 2rem;
-}
-.logo {
-  font-weight: 800;
-  font-size: 1.5rem;
-  background: linear-gradient(90deg, var(--accent), #8b5cf6);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-.nav-links {
-  display: flex;
-  gap: 2rem;
-}
-.nav-links a {
-  color: var(--muted);
-  transition: color 0.2s;
-}
-.nav-links a:hover,
-.nav-links a.active {
-  color: var(--text);
+  height: 70px;
 }
 
-/* Hero */
-.hero {
-  padding: 5rem 2rem;
-  text-align: center;
-  background: linear-gradient(180deg, var(--bg-2) 0%, var(--bg) 100%);
-}
-.hero h1 {
-  font-size: 3.5rem;
+.logo {
+  font-size: 1.8rem;
   font-weight: 800;
-  margin-bottom: 1rem;
   background: linear-gradient(90deg, var(--accent), var(--accent-2));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  letter-spacing: -0.5px;
 }
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.nav-link {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+}
+
+.nav-link:hover {
+  color: var(--text);
+  background: rgba(108, 92, 231, 0.1);
+}
+
+.nav-link.active {
+  color: var(--accent);
+  background: rgba(108, 92, 231, 0.15);
+}
+
+/* Sections */
+.section {
+  min-height: 100vh;
+  padding: 100px 2rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* Hero Section */
+.hero {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+}
+
+.hero h1 {
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1.2;
+}
+
 .hero p {
-  font-size: 1.25rem;
-  color: var(--muted);
+  font-size: 1.2rem;
+  color: var(--text-muted);
   max-width: 600px;
-  margin: 0 auto 2rem;
+  margin-bottom: 3rem;
+  line-height: 1.6;
+}
+
+/* Buttons */
+.btn {
+  padding: 14px 28px;
+  border-radius: 12px;
+  border: none;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: white;
+  box-shadow: 0 4px 20px rgba(108, 92, 231, 0.3);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 30px rgba(108, 92, 231, 0.4);
+}
+
+.btn-secondary {
+  background: transparent;
+  border: 2px solid var(--border-light);
+  color: var(--text);
+}
+
+.btn-secondary:hover {
+  border-color: var(--accent);
+  background: rgba(108, 92, 231, 0.1);
+}
+
+.btn-danger {
+  background: var(--danger);
+  color: white;
+}
+
+.btn-danger:hover {
+  background: var(--danger-hover);
+  transform: translateY(-2px);
+}
+
+.btn-small {
+  padding: 8px 16px;
+  font-size: 0.9rem;
+}
+
+.btn-icon {
+  padding: 10px;
+  min-width: 40px;
+  justify-content: center;
 }
 
 /* Cards */
@@ -95,152 +224,195 @@ header {
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: 16px;
-  padding: 1.5rem;
-  transition: transform 0.2s, border-color 0.2s;
-}
-.card:hover {
-  border-color: var(--accent);
-  transform: translateY(-2px);
-}
-.card-title {
-  font-size: 1.25rem;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-}
-.card-desc {
-  color: var(--muted);
-  font-size: 0.875rem;
+  padding: 2rem;
+  transition: all 0.3s;
+  box-shadow: var(--shadow);
 }
 
-/* Buttons */
-.btn {
-  padding: 0.75rem 1.5rem;
-  border-radius: 10px;
-  border: none;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
+.card:hover {
+  transform: translateY(-5px);
+  border-color: var(--accent);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
 }
-.btn-primary {
-  background: var(--accent);
-  color: white;
-}
-.btn-primary:hover {
-  background: #4f46e5;
-  transform: translateY(-1px);
-}
-.btn-secondary {
-  background: transparent;
-  border: 1px solid var(--border);
+
+.card-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
   color: var(--text);
 }
-.btn-secondary:hover {
-  border-color: var(--accent);
-}
-.btn-success {
-  background: var(--success);
-  color: white;
-}
-.btn-danger {
-  background: var(--danger);
-  color: white;
-}
-.btn-warning {
-  background: var(--warning);
-  color: white;
+
+.card-desc {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.5;
 }
 
 /* Forms */
-.input-group {
-  margin-bottom: 1rem;
+.form-card {
+  max-width: 400px;
+  margin: 0 auto;
 }
-label {
+
+.input-group {
+  margin-bottom: 1.5rem;
+}
+
+.input-label {
   display: block;
   margin-bottom: 0.5rem;
-  font-weight: 500;
+  font-weight: 600;
+  color: var(--text);
 }
-input, select, textarea {
+
+.input-field {
   width: 100%;
-  padding: 0.75rem;
-  border-radius: 10px;
-  border: 1px solid var(--border);
+  padding: 14px;
   background: var(--bg-2);
+  border: 2px solid var(--border);
+  border-radius: 10px;
   color: var(--text);
   font-size: 1rem;
+  transition: all 0.3s;
 }
-input:focus, select:focus, textarea:focus {
+
+.input-field:focus {
   outline: none;
   border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.2);
 }
 
-/* Grid */
-.grid {
-  display: grid;
-  gap: 1.5rem;
-}
-.grid-cols-1 { grid-template-columns: 1fr; }
-.grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
-.grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
-.grid-cols-4 { grid-template-columns: repeat(4, 1fr); }
-@media (max-width: 1024px) {
-  .grid-cols-3 { grid-template-columns: repeat(2, 1fr); }
-  .grid-cols-4 { grid-template-columns: repeat(2, 1fr); }
-}
-@media (max-width: 768px) {
-  .grid-cols-2,
-  .grid-cols-3,
-  .grid-cols-4 { grid-template-columns: 1fr; }
-  .nav-links { display: none; }
-  .hero h1 { font-size: 2.5rem; }
+/* Dashboard */
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border);
 }
 
-/* Badges */
-.badge {
-  display: inline-block;
-  padding: 0.25rem 0.75rem;
-  border-radius: 999px;
-  font-size: 0.75rem;
-  font-weight: 600;
-}
-.badge-primary {
-  background: rgba(88, 101, 242, 0.15);
-  color: var(--accent);
-}
-.badge-success {
-  background: rgba(34, 197, 94, 0.15);
-  color: var(--accent-2);
-}
-.badge-warning {
-  background: rgba(245, 158, 11, 0.15);
-  color: var(--warning);
+.dashboard-title {
+  font-size: 2rem;
+  font-weight: 700;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-/* Table */
-.table-container {
-  overflow-x: auto;
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: var(--bg-2);
+  padding: 1rem 1.5rem;
   border-radius: 12px;
   border: 1px solid var(--border);
 }
-table {
-  width: 100%;
-  border-collapse: collapse;
+
+.user-email {
+  color: var(--text-muted);
+  font-size: 0.9rem;
 }
-th {
+
+/* Sites Grid */
+.sites-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.site-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.site-url {
+  display: block;
+  margin-top: 1rem;
+  padding: 10px;
   background: var(--bg-2);
-  padding: 1rem;
-  text-align: left;
-  font-weight: 600;
-  border-bottom: 1px solid var(--border);
+  border-radius: 8px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+  color: var(--accent-2);
+  word-break: break-all;
+  border: 1px solid var(--border);
 }
-td {
-  padding: 1rem;
-  border-bottom: 1px solid var(--border);
+
+.site-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
 }
-tr:last-child td {
-  border-bottom: none;
+
+/* Stats */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  text-align: center;
+  padding: 1.5rem;
+}
+
+.stat-value {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--accent);
+  margin: 0.5rem 0;
+}
+
+.stat-label {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Alerts */
+.alert {
+  padding: 1rem 1.5rem;
+  border-radius: 10px;
+  margin: 1rem 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.alert-success {
+  background: rgba(29, 209, 161, 0.1);
+  border: 1px solid rgba(29, 209, 161, 0.2);
+  color: var(--success);
+}
+
+.alert-error {
+  background: rgba(255, 71, 87, 0.1);
+  border: 1px solid rgba(255, 71, 87, 0.2);
+  color: var(--danger);
+}
+
+.alert-warning {
+  background: rgba(255, 193, 7, 0.1);
+  border: 1px solid rgba(255, 193, 7, 0.2);
+  color: #ffc107;
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 3rem;
+  color: var(--text-muted);
+}
+
+.empty-state i {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: var(--border-light);
 }
 
 /* Footer */
@@ -248,237 +420,236 @@ footer {
   border-top: 1px solid var(--border);
   padding: 3rem 2rem;
   text-align: center;
-  color: var(--muted);
+  color: var(--text-muted);
   margin-top: 4rem;
 }
 
-/* Dashboard */
-.dashboard-header {
-  padding: 2rem;
-  border-bottom: 1px solid var(--border);
-}
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1rem;
-  margin: 2rem 0;
-}
-.stat-card {
-  text-align: center;
-  padding: 1.5rem;
-}
-.stat-value {
-  font-size: 2rem;
-  font-weight: 700;
-  margin: 0.5rem 0;
-}
-.stat-label {
-  color: var(--muted);
-  font-size: 0.875rem;
-}
-
-/* Modals */
-.modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.8);
+.footer-links {
   display: flex;
-  align-items: center;
   justify-content: center;
-  z-index: 1000;
-  padding: 1rem;
-}
-.modal-content {
-  background: var(--card);
-  border-radius: 16px;
-  max-width: 500px;
-  width: 100%;
-  max-height: 90vh;
-  overflow-y: auto;
-}
-.modal-header {
-  padding: 1.5rem;
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.modal-body {
-  padding: 1.5rem;
-}
-.modal-close {
-  background: none;
-  border: none;
-  color: var(--muted);
-  font-size: 1.5rem;
-  cursor: pointer;
-  padding: 0;
+  gap: 2rem;
+  margin: 1.5rem 0;
 }
 
-/* Tabs */
-.tabs {
-  display: flex;
-  border-bottom: 1px solid var(--border);
-  margin-bottom: 1.5rem;
+.footer-links a {
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.3s;
 }
-.tab {
-  padding: 1rem 1.5rem;
-  background: none;
-  border: none;
-  color: var(--muted);
-  cursor: pointer;
-  border-bottom: 2px solid transparent;
-  font-weight: 500;
-}
-.tab.active {
+
+.footer-links a:hover {
   color: var(--accent);
-  border-bottom-color: var(--accent);
 }
 
-/* API Key */
-.api-key {
-  background: var(--bg-2);
-  padding: 1rem;
-  border-radius: 10px;
-  font-family: monospace;
-  word-break: break-all;
-  margin: 1rem 0;
+/* Loading */
+.loading {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid var(--border-light);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
 }
 
-/* Alert */
-.alert {
-  padding: 1rem;
-  border-radius: 10px;
-  margin: 1rem 0;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
-.alert-success {
-  background: rgba(34, 197, 94, 0.1);
-  border: 1px solid rgba(34, 197, 94, 0.2);
-  color: var(--accent-2);
-}
-.alert-error {
-  background: rgba(239, 68, 68, 0.1);
-  border: 1px solid rgba(239, 68, 68, 0.2);
-  color: var(--danger);
-}
-.alert-warning {
-  background: rgba(245, 158, 11, 0.1);
-  border: 1px solid rgba(245, 158, 11, 0.2);
-  color: var(--warning);
+
+/* Responsive */
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+  }
+  
+  .hero h1 {
+    font-size: 2.5rem;
+  }
+  
+  .section {
+    padding: 80px 1rem 1rem;
+  }
+  
+  .sites-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .dashboard-header {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+  
+  .user-info {
+    width: 100%;
+    justify-content: space-between;
+  }
 }
 </style>
 </head>
 <body>
+<!-- Glow Effects -->
+<div class="glow glow-1"></div>
+<div class="glow glow-2"></div>
+
 <!-- Navigation -->
 <header>
-  <div class="nav container">
+  <div class="nav-container">
     <div class="logo">VenonRoblox</div>
     <div class="nav-links">
-      <a href="#home" class="active">Home</a>
-      <a href="#features">Features</a>
-      <a href="#pricing">Pricing</a>
-      <a href="#docs">Docs</a>
-      <a href="#login" id="loginNav">Login</a>
-      <a href="#dashboard" id="dashboardNav" class="hidden">Dashboard</a>
+      <a href="#home" class="nav-link active">Home</a>
+      <a href="#login" class="nav-link" id="loginNav">Login</a>
+      <a href="#register" class="nav-link" id="registerNav">Register</a>
+      <a href="#dashboard" class="nav-link hidden" id="dashboardNav">Dashboard</a>
+      <button class="btn btn-danger btn-small hidden" id="logoutBtn" onclick="logout()">
+        <i class="fas fa-sign-out-alt"></i> Logout
+      </button>
     </div>
   </div>
 </header>
 
 <!-- Home Section -->
-<section id="home" class="hero">
-  <div class="container">
-    <h1>Advanced Roblox Marketplace Platform</h1>
-    <p>Everything you need to manage licenses, shops, APIs, and monetize your Roblox creations securely.</p>
-    <div class="flex items-center justify-center gap-4 mt-4">
-      <button class="btn btn-primary" onclick="showSection('login')">
-        <i class="fas fa-rocket"></i> Get Started Free
+<section id="home" class="section">
+  <div class="hero">
+    <h1>Advanced Roblox Marketplace</h1>
+    <p>Create, manage, and monetize your Roblox creations with our powerful platform. Free forever for all creators.</p>
+    <div class="flex gap-4" style="display: flex; gap: 1rem;">
+      <button class="btn btn-primary" onclick="showSection('register')">
+        <i class="fas fa-rocket"></i> Start Free
       </button>
-      <button class="btn btn-secondary" onclick="showSection('features')">
-        <i class="fas fa-play-circle"></i> Watch Demo
+      <button class="btn btn-secondary" onclick="showSection('login')">
+        <i class="fas fa-sign-in-alt"></i> Login
       </button>
     </div>
   </div>
 </section>
 
-<!-- Login/Register -->
-<section id="login" class="hidden container p-6" style="max-width: 400px;">
-  <div class="card">
-    <h2 class="text-center mb-4">Welcome Back</h2>
+<!-- Login Section -->
+<section id="login" class="section hidden">
+  <div class="card form-card">
+    <h2 class="card-title text-center" style="text-align: center;">Welcome Back</h2>
     <div id="loginAlert" class="alert hidden"></div>
     <div class="input-group">
-      <label>Email</label>
-      <input type="email" id="loginEmail" placeholder="you@example.com">
+      <label class="input-label">Email</label>
+      <input type="email" id="loginEmail" class="input-field" placeholder="you@example.com">
     </div>
     <div class="input-group">
-      <label>Password</label>
-      <input type="password" id="loginPassword" placeholder="••••••••">
+      <label class="input-label">Password</label>
+      <input type="password" id="loginPassword" class="input-field" placeholder="••••••••">
     </div>
-    <button class="btn btn-primary w-full" onclick="loginUser()">
+    <button class="btn btn-primary w-full" onclick="loginUser()" style="width: 100%;">
       <i class="fas fa-sign-in-alt"></i> Login
     </button>
-    <div class="text-center mt-4">
-      <span style="color: var(--muted);">Don't have an account? </span>
-      <a href="#register" style="color: var(--accent);" onclick="showSection('register')">Register</a>
+    <div class="text-center mt-4" style="text-align: center; margin-top: 1rem;">
+      <span style="color: var(--text-muted);">Don't have an account? </span>
+      <a href="#register" style="color: var(--accent); text-decoration: none;" onclick="showSection('register')">Register</a>
     </div>
   </div>
 </section>
 
-<section id="register" class="hidden container p-6" style="max-width: 400px;">
-  <div class="card">
-    <h2 class="text-center mb-4">Create Account</h2>
+<!-- Register Section -->
+<section id="register" class="section hidden">
+  <div class="card form-card">
+    <h2 class="card-title text-center" style="text-align: center;">Create Account</h2>
     <div id="registerAlert" class="alert hidden"></div>
     <div class="input-group">
-      <label>Username</label>
-      <input type="text" id="registerUsername" placeholder="Choose username">
+      <label class="input-label">Username</label>
+      <input type="text" id="registerUsername" class="input-field" placeholder="BlueTheDev">
     </div>
     <div class="input-group">
-      <label>Email</label>
-      <input type="email" id="registerEmail" placeholder="you@example.com">
+      <label class="input-label">Email</label>
+      <input type="email" id="registerEmail" class="input-field" placeholder="you@example.com">
     </div>
     <div class="input-group">
-      <label>Password</label>
-      <input type="password" id="registerPassword" placeholder="••••••••">
+      <label class="input-label">Password</label>
+      <input type="password" id="registerPassword" class="input-field" placeholder="••••••••">
     </div>
     <div class="input-group">
-      <label>Confirm Password</label>
-      <input type="password" id="registerConfirmPassword" placeholder="••••••••">
+      <label class="input-label">Confirm Password</label>
+      <input type="password" id="registerConfirmPassword" class="input-field" placeholder="••••••••">
     </div>
-    <button class="btn btn-primary w-full" onclick="registerUser()">
+    <button class="btn btn-primary w-full" onclick="registerUser()" style="width: 100%;">
       <i class="fas fa-user-plus"></i> Create Account
     </button>
-    <div class="text-center mt-4">
-      <span style="color: var(--muted);">Already have an account? </span>
-      <a href="#login" style="color: var(--accent);" onclick="showSection('login')">Login</a>
+    <div class="text-center mt-4" style="text-align: center; margin-top: 1rem;">
+      <span style="color: var(--text-muted);">Already have an account? </span>
+      <a href="#login" style="color: var(--accent); text-decoration: none;" onclick="showSection('login')">Login</a>
     </div>
   </div>
 </section>
 
-<!-- Features (Vereinfacht) -->
-<section id="features" class="hidden container p-6">
-  <h2 class="text-center mb-4">Features Coming Soon</h2>
-  <div class="card">
-    <p class="text-center">Complete dashboard will be available after login</p>
+<!-- Dashboard Section -->
+<section id="dashboard" class="section hidden">
+  <div class="dashboard-header">
+    <h1 class="dashboard-title">Dashboard</h1>
+    <div class="user-info">
+      <div>
+        <div id="userName" style="font-weight: 600;"></div>
+        <div id="userEmail" class="user-email"></div>
+      </div>
+      <button class="btn btn-danger btn-small" onclick="logout()">
+        <i class="fas fa-sign-out-alt"></i> Logout
+      </button>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats-grid">
+    <div class="card stat-card">
+      <i class="fas fa-store" style="font-size: 2rem; color: var(--accent);"></i>
+      <div class="stat-value" id="totalSites">0</div>
+      <div class="stat-label">Marketplaces</div>
+    </div>
+    <div class="card stat-card">
+      <i class="fas fa-key" style="font-size: 2rem; color: var(--accent-2);"></i>
+      <div class="stat-value" id="totalLicenses">0</div>
+      <div class="stat-label">Licenses</div>
+    </div>
+    <div class="card stat-card">
+      <i class="fas fa-bolt" style="font-size: 2rem; color: var(--success);"></i>
+      <div class="stat-value" id="apiCalls">0</div>
+      <div class="stat-label">API Calls</div>
+    </div>
+  </div>
+
+  <!-- Create Site Card -->
+  <div class="card" style="margin-bottom: 2rem;">
+    <h2 class="card-title">Create New Marketplace</h2>
+    <p class="card-desc">Create a new marketplace for your Roblox products. Each marketplace gets a unique URL.</p>
+    <div id="createSiteAlert" class="alert hidden"></div>
+    <div class="input-group">
+      <label class="input-label">Marketplace Name</label>
+      <input type="text" id="siteName" class="input-field" placeholder="MyAwesomeShop">
+    </div>
+    <div class="input-group">
+      <label class="input-label">Description</label>
+      <input type="text" id="siteDescription" class="input-field" placeholder="Sell your awesome scripts here!">
+    </div>
+    <button class="btn btn-primary" onclick="createSite()">
+      <i class="fas fa-plus"></i> Create Marketplace
+    </button>
+  </div>
+
+  <!-- Sites List -->
+  <h2 style="margin: 2rem 0 1rem;">Your Marketplaces</h2>
+  <div id="sitesList" class="sites-grid">
+    <!-- Sites will be loaded here -->
   </div>
 </section>
 
 <footer>
-  <div class="container">
-    <div class="text-center">
-      <div class="logo mb-2">VenonRoblox</div>
-      <p style="color: var(--muted);">© 2024 VenonRoblox. All rights reserved.</p>
-    </div>
+  <div class="logo" style="font-size: 1.5rem; margin-bottom: 1rem;">VenonRoblox</div>
+  <div class="footer-links">
+    <a href="#home" onclick="showSection('home')">Home</a>
+    <a href="#login" onclick="showSection('login')">Login</a>
+    <a href="#register" onclick="showSection('register')">Register</a>
   </div>
+  <p>© 2026 VenonRoblox · Advanced Roblox Marketplace Platform</p>
+  <p style="font-size: 0.9rem; margin-top: 0.5rem; color: var(--border-light);">Not affiliated with Roblox Corporation</p>
 </footer>
 
 <script>
-// ===================== FIREBASE INITIALISIERUNG =====================
-// DEINE Firebase-Konfiguration (ersetze mit deinen eigenen Daten!)
+// ===================== FIREBASE CONFIGURATION =====================
 const firebaseConfig = {
   apiKey: "AIzaSyCNY2kHYcYUNVx8ZcnhZN34WZKkGk55bi0",
   authDomain: "venonroblox-291da.firebaseapp.com",
@@ -489,47 +660,61 @@ const firebaseConfig = {
   appId: "1:208806389418:web:5eea9b863a79780061d2d3"
 };
 
-// Firebase initialisieren
+// Initialize Firebase
 const app = firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const database = firebase.database();
 
-// ===================== GLOBALE VARIABLEN =====================
+// ===================== GLOBAL STATE =====================
 let currentUser = null;
+let userData = {};
+let sites = [];
 
-// ===================== NAVIGATIONS-FUNKTIONEN =====================
+// ===================== NAVIGATION =====================
 function showSection(sectionId) {
-  // Alle Sections verstecken
-  document.querySelectorAll('section').forEach(s => s.classList.add('hidden'));
+  // Hide all sections
+  document.querySelectorAll('.section').forEach(s => s.classList.add('hidden'));
   
-  // Navigation aktualisieren
-  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
-  const navLink = document.querySelector(`.nav-links a[href="#${sectionId}"]`);
-  if (navLink) navLink.classList.add('active');
+  // Update navigation
+  document.querySelectorAll('.nav-link').forEach(a => a.classList.remove('active'));
   
-  // Gewünschte Section anzeigen
+  // Show selected section
   const section = document.getElementById(sectionId);
   if (section) {
     section.classList.remove('hidden');
+    const navLink = document.querySelector(`.nav-link[href="#${sectionId}"]`);
+    if (navLink) navLink.classList.add('active');
   }
   
-  // Wenn Dashboard, Daten laden
+  // Update URL hash
+  window.location.hash = sectionId;
+  
+  // If dashboard, load data
   if (sectionId === 'dashboard' && currentUser) {
-    loadUserData();
+    loadDashboardData();
   }
 }
 
 function updateNavigation() {
+  const loginNav = document.getElementById('loginNav');
+  const registerNav = document.getElementById('registerNav');
+  const dashboardNav = document.getElementById('dashboardNav');
+  const logoutBtn = document.getElementById('logoutBtn');
+  
   if (currentUser) {
-    document.getElementById('loginNav').classList.add('hidden');
-    document.getElementById('dashboardNav').classList.remove('hidden');
+    loginNav.classList.add('hidden');
+    registerNav.classList.add('hidden');
+    dashboardNav.classList.remove('hidden');
+    logoutBtn.classList.remove('hidden');
   } else {
-    document.getElementById('loginNav').classList.remove('hidden');
-    document.getElementById('dashboardNav').classList.add('hidden');
+    loginNav.classList.remove('hidden');
+    registerNav.classList.remove('hidden');
+    dashboardNav.classList.add('hidden');
+    logoutBtn.classList.add('hidden');
   }
 }
 
-// ===================== AUTHENTIFIZIERUNGS-FUNKTIONEN =====================
+// ===================== AUTHENTICATION =====================
 async function registerUser() {
   const username = document.getElementById('registerUsername').value.trim();
   const email = document.getElementById('registerEmail').value.trim();
@@ -537,8 +722,8 @@ async function registerUser() {
   const confirmPassword = document.getElementById('registerConfirmPassword').value;
   const alert = document.getElementById('registerAlert');
   
-  // Validierung
-  if (!username || !email || !password) {
+  // Validation
+  if (!username || !email || !password || !confirmPassword) {
     showAlert(alert, 'error', 'Please fill in all fields');
     return;
   }
@@ -553,35 +738,40 @@ async function registerUser() {
     return;
   }
   
+  if (username.length < 3 || username.length > 20) {
+    showAlert(alert, 'error', 'Username must be 3-20 characters');
+    return;
+  }
+  
   try {
     showAlert(alert, 'warning', 'Creating account...', false);
     
-    // 1. Benutzer in Firebase Auth erstellen
+    // Create user in Firebase Auth
     const userCredential = await auth.createUserWithEmailAndPassword(email, password);
     currentUser = userCredential.user;
     
-    // 2. Benutzerdaten in Realtime Database speichern
-    await database.ref('users/' + currentUser.uid).set({
+    // Create user data in Realtime Database
+    const userRef = database.ref('users/' + currentUser.uid);
+    await userRef.set({
       username: username,
       email: email,
-      plan: 'free',
-      apiKey: generateApiKey(),
       createdAt: Date.now(),
-      lastLogin: Date.now()
+      lastLogin: Date.now(),
+      plan: 'free',
+      sitesCount: 0
     });
     
     showAlert(alert, 'success', 'Account created successfully!');
     
-    // Nach 1 Sekunde zum Dashboard navigieren
+    // Update navigation and show dashboard
     setTimeout(() => {
-      showSection('dashboard');
       updateNavigation();
+      showSection('dashboard');
     }, 1000);
     
   } catch (error) {
     let errorMessage = 'Registration failed';
     
-    // Firebase-Fehler übersetzen
     switch (error.code) {
       case 'auth/email-already-in-use':
         errorMessage = 'Email is already registered';
@@ -619,14 +809,14 @@ async function loginUser() {
     const userCredential = await auth.signInWithEmailAndPassword(email, password);
     currentUser = userCredential.user;
     
-    // Last login aktualisieren
+    // Update last login time
     await database.ref('users/' + currentUser.uid + '/lastLogin').set(Date.now());
     
     showAlert(alert, 'success', 'Login successful!');
     
     setTimeout(() => {
-      showSection('dashboard');
       updateNavigation();
+      showSection('dashboard');
     }, 1000);
     
   } catch (error) {
@@ -643,9 +833,6 @@ async function loginUser() {
       case 'auth/too-many-requests':
         errorMessage = 'Too many attempts. Try again later';
         break;
-      case 'auth/network-request-failed':
-        errorMessage = 'Network error. Check your connection';
-        break;
       default:
         errorMessage = error.message;
     }
@@ -658,33 +845,250 @@ async function logout() {
   try {
     await auth.signOut();
     currentUser = null;
-    showSection('home');
+    userData = {};
+    sites = [];
+    
     updateNavigation();
+    showSection('home');
   } catch (error) {
     console.error('Logout error:', error);
   }
 }
 
-// ===================== HELFER-FUNKTIONEN =====================
-function showAlert(alertElement, type, message, autoHide = true) {
-  alertElement.textContent = message;
-  alertElement.className = 'alert';
+// ===================== DASHBOARD FUNCTIONS =====================
+async function loadDashboardData() {
+  if (!currentUser) return;
   
+  try {
+    // Load user data
+    const userSnapshot = await database.ref('users/' + currentUser.uid).once('value');
+    userData = userSnapshot.val();
+    
+    if (userData) {
+      document.getElementById('userName').textContent = userData.username;
+      document.getElementById('userEmail').textContent = userData.email;
+    }
+    
+    // Load sites
+    await loadSites();
+    
+  } catch (error) {
+    console.error('Error loading dashboard data:', error);
+  }
+}
+
+async function loadSites() {
+  if (!currentUser) return;
+  
+  try {
+    const sitesSnapshot = await database.ref('sites')
+      .orderByChild('owner')
+      .equalTo(currentUser.uid)
+      .once('value');
+    
+    sites = [];
+    let totalLicenses = 0;
+    let totalApiCalls = 0;
+    
+    if (sitesSnapshot.exists()) {
+      sitesSnapshot.forEach((childSnapshot) => {
+        const site = childSnapshot.val();
+        site.id = childSnapshot.key;
+        sites.push(site);
+        
+        // Sum up stats
+        totalLicenses += site.licensesCount || 0;
+        totalApiCalls += site.apiCalls || 0;
+      });
+    }
+    
+    // Update stats
+    document.getElementById('totalSites').textContent = sites.length;
+    document.getElementById('totalLicenses').textContent = totalLicenses;
+    document.getElementById('apiCalls').textContent = totalApiCalls;
+    
+    // Render sites
+    renderSites();
+    
+  } catch (error) {
+    console.error('Error loading sites:', error);
+  }
+}
+
+function renderSites() {
+  const container = document.getElementById('sitesList');
+  
+  if (sites.length === 0) {
+    container.innerHTML = `
+      <div class="empty-state card" style="grid-column: 1 / -1;">
+        <i class="fas fa-store"></i>
+        <h3>No marketplaces yet</h3>
+        <p>Create your first marketplace to get started!</p>
+      </div>
+    `;
+    return;
+  }
+  
+  container.innerHTML = '';
+  
+  sites.forEach(site => {
+    const siteCard = document.createElement('div');
+    siteCard.className = 'card site-card';
+    
+    const siteUrl = `https://venonweb.netlify.app/#${site.id}`;
+    
+    siteCard.innerHTML = `
+      <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 1rem;">
+        <div>
+          <h3 class="card-title">${site.name}</h3>
+          <p class="card-desc">${site.description || 'No description'}</p>
+        </div>
+        <span style="background: var(--bg-2); padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; color: var(--accent);">
+          ${site.licensesCount || 0} licenses
+        </span>
+      </div>
+      
+      <div class="site-url">
+        ${siteUrl}
+      </div>
+      
+      <div class="site-actions">
+        <button class="btn btn-secondary btn-small" onclick="copyUrl('${site.id}')">
+          <i class="fas fa-copy"></i> Copy URL
+        </button>
+        <button class="btn btn-danger btn-small" onclick="deleteSite('${site.id}')">
+          <i class="fas fa-trash"></i> Delete
+        </button>
+      </div>
+      
+      <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border); font-size: 0.8rem; color: var(--text-muted);">
+        Created: ${formatDate(site.createdAt)}
+      </div>
+    `;
+    
+    container.appendChild(siteCard);
+  });
+}
+
+async function createSite() {
+  if (!currentUser) return;
+  
+  const name = document.getElementById('siteName').value.trim();
+  const description = document.getElementById('siteDescription').value.trim();
+  const alert = document.getElementById('createSiteAlert');
+  
+  if (!name) {
+    showAlert(alert, 'error', 'Please enter a marketplace name');
+    return;
+  }
+  
+  if (name.length < 3 || name.length > 30) {
+    showAlert(alert, 'error', 'Marketplace name must be 3-30 characters');
+    return;
+  }
+  
+  // Check if user already has 5 sites (free plan limit)
+  if (sites.length >= 5) {
+    showAlert(alert, 'error', 'Free plan limit: Maximum 5 marketplaces');
+    return;
+  }
+  
+  try {
+    showAlert(alert, 'warning', 'Creating marketplace...', false);
+    
+    const siteId = generateSiteId(name);
+    const siteData = {
+      name: name,
+      description: description,
+      owner: currentUser.uid,
+      ownerName: userData.username,
+      createdAt: Date.now(),
+      licensesCount: 0,
+      apiCalls: 0,
+      active: true
+    };
+    
+    // Create site in database
+    await database.ref('sites/' + siteId).set(siteData);
+    
+    // Update user's sites count
+    await database.ref('users/' + currentUser.uid + '/sitesCount').set(sites.length + 1);
+    
+    // Clear form
+    document.getElementById('siteName').value = '';
+    document.getElementById('siteDescription').value = '';
+    
+    showAlert(alert, 'success', 'Marketplace created successfully!');
+    
+    // Reload sites
+    setTimeout(() => {
+      loadSites();
+    }, 500);
+    
+  } catch (error) {
+    showAlert(alert, 'error', 'Error creating marketplace: ' + error.message);
+  }
+}
+
+async function deleteSite(siteId) {
+  if (!currentUser || !confirm('Are you sure you want to delete this marketplace? This action cannot be undone.')) {
+    return;
+  }
+  
+  try {
+    // Check if user owns this site
+    const siteRef = database.ref('sites/' + siteId);
+    const siteSnapshot = await siteRef.once('value');
+    
+    if (!siteSnapshot.exists()) {
+      alert('Marketplace not found');
+      return;
+    }
+    
+    const site = siteSnapshot.val();
+    if (site.owner !== currentUser.uid) {
+      alert('You do not have permission to delete this marketplace');
+      return;
+    }
+    
+    // Delete site
+    await siteRef.remove();
+    
+    // Update user's sites count
+    await database.ref('users/' + currentUser.uid + '/sitesCount').set(sites.length - 1);
+    
+    // Show success message
+    alert('Marketplace deleted successfully!');
+    
+    // Reload sites
+    loadSites();
+    
+  } catch (error) {
+    alert('Error deleting marketplace: ' + error.message);
+  }
+}
+
+// ===================== UTILITY FUNCTIONS =====================
+function showAlert(alertElement, type, message, autoHide = true) {
+  alertElement.innerHTML = '';
+  
+  let icon = '';
   switch (type) {
     case 'success':
-      alertElement.classList.add('alert-success');
-      alertElement.innerHTML = '<i class="fas fa-check-circle"></i> ' + message;
+      icon = '<i class="fas fa-check-circle"></i>';
+      alertElement.className = 'alert alert-success';
       break;
     case 'error':
-      alertElement.classList.add('alert-error');
-      alertElement.innerHTML = '<i class="fas fa-exclamation-circle"></i> ' + message;
+      icon = '<i class="fas fa-exclamation-circle"></i>';
+      alertElement.className = 'alert alert-error';
       break;
     case 'warning':
-      alertElement.classList.add('alert-warning');
-      alertElement.innerHTML = '<i class="fas fa-exclamation-triangle"></i> ' + message;
+      icon = '<i class="fas fa-exclamation-triangle"></i>';
+      alertElement.className = 'alert alert-warning';
       break;
   }
   
+  alertElement.innerHTML = icon + ' ' + message;
   alertElement.classList.remove('hidden');
   
   if (autoHide && type !== 'error') {
@@ -694,73 +1098,83 @@ function showAlert(alertElement, type, message, autoHide = true) {
   }
 }
 
-function generateApiKey() {
-  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  let result = '';
-  for (let i = 0; i < 32; i++) {
-    result += chars.charAt(Math.floor(Math.random() * chars.length));
-  }
-  return result;
+function generateSiteId(name) {
+  const timestamp = Date.now().toString(36);
+  const random = Math.random().toString(36).substring(2, 8);
+  const nameSlug = name.toLowerCase()
+    .replace(/[^a-z0-9]/g, '')
+    .substring(0, 10);
+  return `${nameSlug}_${timestamp}_${random}`;
 }
 
-async function loadUserData() {
-  if (!currentUser) return;
-  
-  try {
-    const snapshot = await database.ref('users/' + currentUser.uid).once('value');
-    const userData = snapshot.val();
-    
-    if (userData) {
-      // Hier kannst du Dashboard-Daten anzeigen
-      console.log('User data loaded:', userData);
-    }
-  } catch (error) {
-    console.error('Error loading user data:', error);
-  }
+function formatDate(timestamp) {
+  if (!timestamp) return 'Unknown';
+  const date = new Date(timestamp);
+  return date.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric'
+  });
 }
 
-// ===================== EVENT LISTENER =====================
+function copyUrl(siteId) {
+  const url = `https://venonweb.netlify.app/#${siteId}`;
+  navigator.clipboard.writeText(url).then(() => {
+    alert('URL copied to clipboard!');
+  }).catch(err => {
+    console.error('Failed to copy: ', err);
+  });
+}
+
+// ===================== INITIALIZATION =====================
 document.addEventListener('DOMContentLoaded', function() {
-  // Standardmäßig Home anzeigen
-  showSection('home');
+  // Check initial hash
+  const hash = window.location.hash.substring(1) || 'home';
   
-  // Auth State Listener
+  // Auth state listener
   auth.onAuthStateChanged((user) => {
     currentUser = user;
     updateNavigation();
     
     if (user) {
-      // Automatisch zum Dashboard wenn eingeloggt
-      showSection('dashboard');
+      // User is logged in
+      if (hash === 'login' || hash === 'register' || hash === 'home') {
+        showSection('dashboard');
+      } else {
+        showSection(hash);
+      }
     } else {
-      // Zur Startseite wenn ausgeloggt
-      if (!window.location.hash || window.location.hash === '#home') {
+      // User is logged out
+      if (hash === 'dashboard') {
         showSection('home');
+      } else {
+        showSection(hash);
       }
     }
   });
   
-  // Hash Change Listener für Navigation
+  // Handle hash changes
   window.addEventListener('hashchange', function() {
-    const hash = window.location.hash.substring(1) || 'home';
-    showSection(hash);
-  });
-  
-  // Form Submit verhindern
-  document.querySelectorAll('input').forEach(input => {
-    input.addEventListener('keypress', function(e) {
-      if (e.key === 'Enter') {
-        e.preventDefault();
-      }
-    });
+    const newHash = window.location.hash.substring(1) || 'home';
+    
+    // Don't show dashboard to logged out users
+    if (!currentUser && newHash === 'dashboard') {
+      showSection('home');
+      return;
+    }
+    
+    showSection(newHash);
   });
 });
 
-// ===================== GLOBALE FUNKTIONEN =====================
+// ===================== GLOBAL FUNCTIONS =====================
 window.showSection = showSection;
 window.loginUser = loginUser;
 window.registerUser = registerUser;
 window.logout = logout;
+window.createSite = createSite;
+window.deleteSite = deleteSite;
+window.copyUrl = copyUrl;
 </script>
 </body>
 </html>

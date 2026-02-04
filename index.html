@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>VenonRoblox – License Manager</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Secure license management platform for Roblox products." />
+  <style>
+    :root {
+      --bg: #0b0f1a;
+      --card: #12172a;
+      --accent: #5865f2;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --danger: #ef4444;
+      --success: #22c55e;
+    }
+
+    * { box-sizing: border-box; font-family: Inter, system-ui, sans-serif; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    header {
+      padding: 20px 40px;
+      border-bottom: 1px solid #1f2937;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header h1 {
+      font-size: 20px;
+      margin: 0;
+    }
+
+    main {
+      padding: 40px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 24px;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 14px;
+      padding: 24px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.3);
+    }
+
+    .card h2 {
+      margin-top: 0;
+      font-size: 18px;
+    }
+
+    .muted { color: var(--muted); font-size: 14px; }
+
+    button {
+      background: var(--accent);
+      border: none;
+      color: white;
+      padding: 10px 16px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    button:disabled {
+      opacity: .5;
+      cursor: not-allowed;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      border-radius: 10px;
+      border: 1px solid #1f2937;
+      background: #020617;
+      color: white;
+      margin-bottom: 12px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+    }
+
+    th, td {
+      text-align: left;
+      padding: 10px;
+      border-bottom: 1px solid #1f2937;
+      font-size: 14px;
+    }
+
+    .status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--danger);
+    }
+
+    .dot.online {
+      background: var(--success);
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>VenonRoblox</h1>
+  <span class="muted">License Management Platform</span>
+</header>
+
+<main>
+  <div class="grid">
+    <!-- LEFT -->
+    <div class="card">
+      <h2>Account</h2>
+      <p class="muted">Authentication is handled via secure backend API.</p>
+
+      <input placeholder="User ID" disabled />
+      <input placeholder="API Token" disabled />
+
+      <button disabled>Login</button>
+
+      <hr style="border-color:#1f2937;margin:20px 0">
+
+      <h2>Bot Status</h2>
+      <div class="status">
+        <div class="dot"></div>
+        <span class="muted">Disconnected (API not linked)</span>
+      </div>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="card">
+      <h2>Licenses</h2>
+      <p class="muted">All license actions are performed server-side.</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>License Key</th>
+            <th>Product</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>—</td>
+            <td>—</td>
+            <td class="muted">No data</td>
+            <td>
+              <button disabled>Revoke</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <hr style="border-color:#1f2937;margin:20px 0">
+
+      <h2>Create License</h2>
+      <input placeholder="Product ID" disabled />
+      <input placeholder="User / Roblox ID" disabled />
+      <button disabled>Create License</button>
+    </div>
+  </div>
+</main>
+
+<footer>
+  © 2026 VenonRoblox · Secure · API-Driven · Netlify Ready
+</footer>
+
+</body>
+</html>

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>VenonRoblox</title>
+<title>VenonRoblox – Advanced Marketplace</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Complete Roblox license & marketplace platform">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -303,6 +303,11 @@ header {
   box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.2);
 }
 
+textarea.input-field {
+  min-height: 100px;
+  resize: vertical;
+}
+
 /* Dashboard */
 .dashboard-header {
   display: flex;
@@ -339,7 +344,7 @@ header {
 /* Sites Grid */
 .sites-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
   gap: 1.5rem;
   margin-top: 2rem;
 }
@@ -431,6 +436,80 @@ header {
   letter-spacing: 0.5px;
 }
 
+/* Products Grid */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.product-card {
+  position: relative;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  background: var(--card);
+  transition: all 0.3s;
+}
+
+.product-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--accent);
+}
+
+.product-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.product-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.product-price {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--success);
+}
+
+.product-description {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+
+.product-details {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.product-detail {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  padding: 4px 8px;
+  background: var(--bg-2);
+  border-radius: 6px;
+}
+
+.product-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+
 /* Stats */
 .stats-grid {
   display: grid;
@@ -500,33 +579,12 @@ header {
   color: var(--border-light);
 }
 
-/* License Manager */
-.license-section {
-  margin-top: 2rem;
-}
-
-.license-item {
-  background: var(--bg-2);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 1rem;
-  margin-bottom: 0.5rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.license-key {
-  font-family: 'Courier New', monospace;
-  color: var(--accent-2);
-  font-size: 0.9rem;
-}
-
 /* Tabs */
 .tabs {
   display: flex;
   border-bottom: 1px solid var(--border);
   margin-bottom: 2rem;
+  overflow-x: auto;
 }
 
 .tab {
@@ -539,6 +597,7 @@ header {
   font-size: 1rem;
   border-bottom: 2px solid transparent;
   transition: all 0.3s;
+  white-space: nowrap;
 }
 
 .tab:hover {
@@ -664,6 +723,24 @@ footer {
   to { transform: rotate(360deg); }
 }
 
+/* API Test Box */
+.api-test-box {
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.5rem;
+  margin-top: 1rem;
+}
+
+.api-endpoint {
+  font-family: 'Courier New', monospace;
+  background: var(--bg);
+  padding: 0.75rem;
+  border-radius: 6px;
+  margin: 0.5rem 0;
+  word-break: break-all;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .nav-links {
@@ -678,7 +755,8 @@ footer {
     padding: 80px 1rem 1rem;
   }
   
-  .sites-grid {
+  .sites-grid,
+  .products-grid {
     grid-template-columns: 1fr;
   }
   
@@ -729,7 +807,7 @@ footer {
 <section id="home" class="section">
   <div class="hero">
     <h1>Advanced Roblox Marketplace</h1>
-    <p>Create, manage, and monetize your Roblox creations with our powerful platform. Free forever for all creators.</p>
+    <p>Create, manage, and sell your Roblox products with GamePass integration. Free forever for all creators.</p>
     <div style="display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;">
       <button class="btn btn-primary" onclick="showSection('register')">
         <i class="fas fa-rocket"></i> Start Free
@@ -815,14 +893,14 @@ footer {
     <button class="tab active" onclick="switchTab('marketplaces')">
       <i class="fas fa-store"></i> Marketplaces
     </button>
-    <button class="tab" onclick="switchTab('licenses')">
-      <i class="fas fa-key"></i> Licenses
+    <button class="tab" onclick="switchTab('products')">
+      <i class="fas fa-box"></i> Products
+    </button>
+    <button class="tab" onclick="switchTab('api')">
+      <i class="fas fa-code"></i> API
     </button>
     <button class="tab" onclick="switchTab('analytics')">
       <i class="fas fa-chart-line"></i> Analytics
-    </button>
-    <button class="tab" onclick="switchTab('settings')">
-      <i class="fas fa-cog"></i> Settings
     </button>
   </div>
 
@@ -836,19 +914,19 @@ footer {
         <div class="stat-label">Marketplaces</div>
       </div>
       <div class="card stat-card">
-        <i class="fas fa-key" style="font-size: 2rem; color: var(--accent-2);"></i>
-        <div class="stat-value" id="totalLicenses">0</div>
-        <div class="stat-label">Total Licenses</div>
+        <i class="fas fa-box" style="font-size: 2rem; color: var(--accent-2);"></i>
+        <div class="stat-value" id="totalProducts">0</div>
+        <div class="stat-label">Products</div>
       </div>
       <div class="card stat-card">
-        <i class="fas fa-eye" style="font-size: 2rem; color: var(--success);"></i>
-        <div class="stat-value" id="totalViews">0</div>
-        <div class="stat-label">Total Views</div>
+        <i class="fas fa-shopping-cart" style="font-size: 2rem; color: var(--success);"></i>
+        <div class="stat-value" id="totalSales">0</div>
+        <div class="stat-label">Sales</div>
       </div>
       <div class="card stat-card">
-        <i class="fas fa-sync-alt" style="font-size: 2rem; color: var(--warning);"></i>
-        <div class="stat-value" id="apiCalls">0</div>
-        <div class="stat-label">API Calls</div>
+        <i class="fas fa-dollar-sign" style="font-size: 2rem; color: var(--warning);"></i>
+        <div class="stat-value" id="totalRevenue">$0</div>
+        <div class="stat-label">Revenue</div>
       </div>
     </div>
 
@@ -864,20 +942,13 @@ footer {
       </div>
       <div class="input-group">
         <label class="input-label">Description</label>
-        <input type="text" id="siteDescription" class="input-field" placeholder="Sell your awesome scripts here!" maxlength="100">
+        <textarea id="siteDescription" class="input-field" placeholder="Sell your awesome Roblox products here!" maxlength="200"></textarea>
       </div>
       <div class="input-group">
-        <label class="input-label">Category</label>
-        <select id="siteCategory" class="input-field">
-          <option value="scripts">Scripts</option>
-          <option value="models">3D Models</option>
-          <option value="plugins">Plugins</option>
-          <option value="uilibs">UI Libraries</option>
-          <option value="games">Games</option>
-          <option value="other">Other</option>
-        </select>
+        <label class="input-label">Theme Color</label>
+        <input type="color" id="siteColor" class="input-field" value="#6c5ce7" style="height: 50px; padding: 5px;">
       </div>
-      <button class="btn btn-primary" onclick="createSite()">
+      <button class="btn btn-primary" onclick="createSite()" id="createSiteBtn">
         <i class="fas fa-plus"></i> Create Marketplace
       </button>
     </div>
@@ -889,51 +960,163 @@ footer {
     </div>
   </div>
 
-  <!-- Licenses Tab -->
-  <div id="licensesTab" class="tab-content">
+  <!-- Products Tab -->
+  <div id="productsTab" class="tab-content">
     <div class="card" style="margin-bottom: 2rem;">
-      <h2 class="card-title">License Management</h2>
-      <p class="card-desc">Create and manage licenses for your products. Licenses are automatically validated through our API.</p>
+      <h2 class="card-title">Create New Product</h2>
+      <p class="card-desc">Add products to your marketplaces. Products are linked to Roblox GamePasses.</p>
+      <div id="createProductAlert" class="alert hidden"></div>
       
       <div class="input-group">
-        <label class="input-label">Select Marketplace</label>
-        <select id="licenseSiteSelect" class="input-field" onchange="updateLicenseForm()">
+        <label class="input-label">Select Marketplace *</label>
+        <select id="productSiteSelect" class="input-field" onchange="updateProductForm()">
           <option value="">-- Select a marketplace --</option>
         </select>
       </div>
       
       <div class="input-group">
-        <label class="input-label">Number of Licenses to Generate</label>
-        <input type="number" id="licenseCount" class="input-field" value="1" min="1" max="10">
+        <label class="input-label">Product Name *</label>
+        <input type="text" id="productName" class="input-field" placeholder="Premium Script Package" maxlength="50">
       </div>
       
       <div class="input-group">
-        <label class="input-label">Expiration (days)</label>
-        <select id="licenseExpiration" class="input-field">
-          <option value="1">1 Day</option>
-          <option value="7">7 Days</option>
-          <option value="30" selected>30 Days</option>
-          <option value="90">90 Days</option>
-          <option value="365">1 Year</option>
-          <option value="0">Lifetime</option>
+        <label class="input-label">Description</label>
+        <textarea id="productDescription" class="input-field" placeholder="Detailed description of your product..." maxlength="500"></textarea>
+      </div>
+      
+      <div class="input-group">
+        <label class="input-label">Price (Robux) *</label>
+        <input type="number" id="productPrice" class="input-field" placeholder="199" min="1" max="100000">
+      </div>
+      
+      <div class="input-group">
+        <label class="input-label">GamePass ID *</label>
+        <input type="number" id="gamepassId" class="input-field" placeholder="123456789" min="1">
+        <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.25rem;">
+          The GamePass ID from Roblox (numeric)
+        </div>
+      </div>
+      
+      <div class="input-group">
+        <label class="input-label">Game URL</label>
+        <input type="url" id="gameUrl" class="input-field" placeholder="https://www.roblox.com/games/123456789/Game-Name">
+      </div>
+      
+      <div class="input-group">
+        <label class="input-label">Category</label>
+        <select id="productCategory" class="input-field">
+          <option value="script">Script</option>
+          <option value="model">3D Model</option>
+          <option value="plugin">Plugin</option>
+          <option value="uilib">UI Library</option>
+          <option value="gamepass">GamePass</option>
+          <option value="other">Other</option>
         </select>
       </div>
       
-      <button class="btn btn-primary" onclick="generateLicenses()" id="generateLicenseBtn" disabled>
-        <i class="fas fa-key"></i> Generate Licenses
+      <button class="btn btn-primary" onclick="createProduct()" id="createProductBtn" disabled>
+        <i class="fas fa-box"></i> Create Product
       </button>
     </div>
 
-    <div id="licensesList">
-      <!-- Licenses will be loaded here -->
+    <h2 style="margin: 2rem 0 1rem;">Your Products</h2>
+    <div id="productsList" class="products-grid">
+      <!-- Products will be loaded here -->
+    </div>
+  </div>
+
+  <!-- API Tab -->
+  <div id="apiTab" class="tab-content">
+    <div class="card" style="margin-bottom: 2rem;">
+      <h2 class="card-title">API Integration</h2>
+      <p class="card-desc">Integrate your marketplace with Roblox games using our API.</p>
+      
+      <div class="input-group">
+        <label class="input-label">Your API Key</label>
+        <div class="site-url" id="apiKeyDisplay">Click generate to create an API key</div>
+        <div style="display: flex; gap: 0.5rem; margin-top: 0.5rem;">
+          <button class="btn btn-secondary" onclick="generateApiKey()">
+            <i class="fas fa-sync-alt"></i> Generate New Key
+          </button>
+          <button class="btn btn-secondary" onclick="copyApiKey()">
+            <i class="fas fa-copy"></i> Copy
+          </button>
+        </div>
+      </div>
+      
+      <div class="api-test-box">
+        <h3 style="margin-bottom: 1rem;">API Endpoints</h3>
+        
+        <div class="input-group">
+          <label class="input-label">Validate Purchase</label>
+          <div class="api-endpoint">POST https://venonroblox-api.onrender.com/api/validate</div>
+          <div style="font-size: 0.9rem; color: var(--text-muted); margin-top: 0.25rem;">
+            Body: {"apiKey": "your_key", "userId": "robloxUserId", "productId": "your_product_id"}
+          </div>
+        </div>
+        
+        <div class="input-group">
+          <label class="input-label">Get User Purchases</label>
+          <div class="api-endpoint">GET https://venonroblox-api.onrender.com/api/user/{robloxUserId}/purchases</div>
+          <div style="font-size: 0.9rem; color: var(--text-muted); margin-top: 0.25rem;">
+            Header: X-API-Key: your_api_key
+          </div>
+        </div>
+        
+        <div class="input-group">
+          <label class="input-label">Get Product Info</label>
+          <div class="api-endpoint">GET https://venonroblox-api.onrender.com/api/products/{productId}</div>
+        </div>
+      </div>
+      
+      <div class="card" style="margin-top: 2rem;">
+        <h3 class="card-title">Roblox Lua Example</h3>
+        <pre style="background: var(--bg-2); padding: 1rem; border-radius: 8px; overflow-x: auto; font-size: 0.9rem; color: var(--text-muted);">
+local HttpService = game:GetService("HttpService")
+local MarketplaceService = game:GetService("MarketplaceService")
+
+local API_URL = "https://venonroblox-api.onrender.com/api/validate"
+local API_KEY = "YOUR_API_KEY_HERE"
+
+-- GamePass purchase handler
+MarketplaceService.ProcessReceipt = function(receiptInfo)
+    local userId = receiptInfo.PlayerId
+    local productId = receiptInfo.ProductId
+    
+    -- Validate with Venon API
+    local success, response = pcall(function()
+        return HttpService:PostAsync(API_URL, HttpService:JSONEncode({
+            apiKey = API_KEY,
+            userId = tostring(userId),
+            productId = productId
+        }), Enum.HttpContentType.ApplicationJson)
+    end)
+    
+    if success then
+        local data = HttpService:JSONDecode(response)
+        if data.valid then
+            -- Give product to player
+            giveProductToPlayer(userId, productId)
+            return Enum.ProductPurchaseDecision.PurchaseGranted
+        end
+    end
+    
+    return Enum.ProductPurchaseDecision.NotProcessedYet
+end
+
+function giveProductToPlayer(userId, productId)
+    -- Your logic to give the product
+    print("Giving product", productId, "to user", userId)
+end</pre>
+      </div>
     </div>
   </div>
 
   <!-- Analytics Tab -->
   <div id="analyticsTab" class="tab-content">
     <div class="card" style="margin-bottom: 2rem;">
-      <h2 class="card-title">Analytics Dashboard</h2>
-      <p class="card-desc">Track your marketplace performance and user engagement.</p>
+      <h2 class="card-title">Sales Analytics</h2>
+      <p class="card-desc">Track your marketplace performance and sales data.</p>
       
       <div class="stats-grid">
         <div class="card stat-card">
@@ -942,91 +1125,27 @@ footer {
           <div class="stat-label">Customers</div>
         </div>
         <div class="card stat-card">
-          <i class="fas fa-dollar-sign" style="font-size: 2rem; color: var(--success);"></i>
-          <div class="stat-value" id="totalRevenue">$0</div>
-          <div class="stat-label">Revenue</div>
-        </div>
-        <div class="card stat-card">
-          <i class="fas fa-chart-bar" style="font-size: 2rem; color: var(--accent-2);"></i>
+          <i class="fas fa-sync-alt" style="font-size: 2rem; color: var(--success);"></i>
           <div class="stat-value" id="conversionRate">0%</div>
           <div class="stat-label">Conversion</div>
         </div>
+        <div class="card stat-card">
+          <i class="fas fa-chart-bar" style="font-size: 2rem; color: var(--accent-2);"></i>
+          <div class="stat-value" id="avgOrder">$0</div>
+          <div class="stat-label">Avg Order</div>
+        </div>
       </div>
     </div>
 
     <div class="card">
-      <h3 class="card-title">Recent Activity</h3>
-      <div id="recentActivity" class="empty-state">
+      <h3 class="card-title">Recent Sales</h3>
+      <div id="recentSales" class="empty-state">
         <i class="fas fa-chart-line"></i>
-        <p>No activity yet. Create your first marketplace to see analytics!</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- Settings Tab -->
-  <div id="settingsTab" class="tab-content">
-    <div class="card" style="margin-bottom: 2rem;">
-      <h2 class="card-title">Account Settings</h2>
-      
-      <div class="input-group">
-        <label class="input-label">Username</label>
-        <input type="text" id="settingsUsername" class="input-field" value="Loading...">
-      </div>
-      
-      <div class="input-group">
-        <label class="input-label">Email</label>
-        <input type="email" id="settingsEmail" class="input-field" value="Loading...">
-      </div>
-      
-      <button class="btn btn-primary" onclick="updateProfile()">
-        <i class="fas fa-save"></i> Save Changes
-      </button>
-    </div>
-
-    <div class="card">
-      <h2 class="card-title">API Configuration</h2>
-      <p class="card-desc">Use your API key to integrate license validation into your Roblox games.</p>
-      
-      <div class="input-group">
-        <label class="input-label">Your API Key</label>
-        <div class="site-url" id="apiKeyDisplay">Click generate to create an API key</div>
-        <button class="btn btn-secondary" onclick="generateApiKey()">
-          <i class="fas fa-sync-alt"></i> Generate New Key
-        </button>
-      </div>
-      
-      <div class="input-group">
-        <label class="input-label">API Endpoint</label>
-        <div class="site-url">POST https://api.venonroblox.com/validate</div>
+        <p>No sales yet. Add products to your marketplace!</p>
       </div>
     </div>
   </div>
 </section>
-
-<!-- License Generated Modal -->
-<div id="licenseModal" class="modal hidden">
-  <div class="modal-content">
-    <div class="modal-header">
-      <div class="modal-title">Licenses Generated Successfully</div>
-      <button class="modal-close" onclick="closeModal()">&times;</button>
-    </div>
-    <div class="modal-body">
-      <div class="alert alert-success">
-        <i class="fas fa-check-circle"></i> Licenses have been generated successfully!
-      </div>
-      <div class="input-group">
-        <label class="input-label">Generated License Keys</label>
-        <div class="site-url" id="generatedLicenses" style="max-height: 200px; overflow-y: auto;"></div>
-      </div>
-      <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 1rem;">
-        <i class="fas fa-exclamation-triangle"></i> Save these keys securely. They won't be shown again.
-      </p>
-      <button class="btn btn-secondary" onclick="copyLicenses()" style="width: 100%; margin-top: 1rem;">
-        <i class="fas fa-copy"></i> Copy All to Clipboard
-      </button>
-    </div>
-  </div>
-</div>
 
 <footer>
   <div class="logo" style="font-size: 1.5rem; margin-bottom: 1rem;">VenonRoblox</div>
@@ -1060,7 +1179,7 @@ const database = firebase.database();
 let currentUser = null;
 let userData = {};
 let sites = [];
-let licenses = [];
+let products = [];
 
 // ===================== NAVIGATION =====================
 function showSection(sectionId) {
@@ -1101,21 +1220,17 @@ function updateNavigation() {
 }
 
 function switchTab(tabName) {
-  // Update tabs
   document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
   document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
   
-  // Activate clicked tab
   const activeTab = document.querySelector(`.tab[onclick="switchTab('${tabName}')"]`);
   if (activeTab) activeTab.classList.add('active');
   
-  // Show corresponding content
   const tabContent = document.getElementById(`${tabName}Tab`);
   if (tabContent) tabContent.classList.add('active');
   
-  // Load data for specific tab
-  if (tabName === 'licenses') {
-    loadLicenses();
+  if (tabName === 'products') {
+    loadProducts();
   } else if (tabName === 'analytics') {
     loadAnalytics();
   }
@@ -1155,7 +1270,6 @@ async function registerUser() {
     const userCredential = await auth.createUserWithEmailAndPassword(email, password);
     currentUser = userCredential.user;
     
-    // Ensure userData is properly initialized
     userData = {
       username: username,
       email: email,
@@ -1163,9 +1277,10 @@ async function registerUser() {
       lastLogin: Date.now(),
       plan: 'free',
       sitesCount: 0,
-      apiKey: generateRandomKey(32),
+      productsCount: 0,
+      totalSales: 0,
       totalRevenue: 0,
-      totalCustomers: 0
+      apiKey: generateRandomKey(32)
     };
     
     await database.ref('users/' + currentUser.uid).set(userData);
@@ -1248,7 +1363,7 @@ async function logout() {
     currentUser = null;
     userData = {};
     sites = [];
-    licenses = [];
+    products = [];
     
     updateNavigation();
     showSection('home');
@@ -1265,7 +1380,6 @@ async function loadDashboardData() {
     const userSnapshot = await database.ref('users/' + currentUser.uid).once('value');
     userData = userSnapshot.val() || {};
     
-    // Ensure userData has all required fields
     if (!userData.apiKey) {
       userData.apiKey = generateRandomKey(32);
       await database.ref('users/' + currentUser.uid + '/apiKey').set(userData.apiKey);
@@ -1273,17 +1387,14 @@ async function loadDashboardData() {
     
     document.getElementById('userName').textContent = userData.username || 'User';
     document.getElementById('userEmail').textContent = userData.email || '';
-    
-    // Update settings form
-    document.getElementById('settingsUsername').value = userData.username || '';
-    document.getElementById('settingsEmail').value = userData.email || '';
     document.getElementById('apiKeyDisplay').textContent = userData.apiKey || 'No API key';
     
     await loadSites();
-    updateLicenseForm();
+    updateProductForm();
     
   } catch (error) {
     console.error('Error loading dashboard data:', error);
+    showAlert(document.getElementById('createSiteAlert'), 'error', 'Error loading data: ' + error.message);
   }
 }
 
@@ -1297,9 +1408,9 @@ async function loadSites() {
       .once('value');
     
     sites = [];
-    let totalLicenses = 0;
-    let totalViews = 0;
-    let totalApiCalls = 0;
+    let totalProducts = 0;
+    let totalSales = 0;
+    let totalRevenue = 0;
     
     if (sitesSnapshot.exists()) {
       sitesSnapshot.forEach((childSnapshot) => {
@@ -1307,19 +1418,19 @@ async function loadSites() {
         site.id = childSnapshot.key;
         sites.push(site);
         
-        totalLicenses += site.licensesCount || 0;
-        totalViews += site.views || 0;
-        totalApiCalls += site.apiCalls || 0;
+        totalProducts += site.productsCount || 0;
+        totalSales += site.totalSales || 0;
+        totalRevenue += site.totalRevenue || 0;
       });
     }
     
     document.getElementById('totalSites').textContent = sites.length;
-    document.getElementById('totalLicenses').textContent = totalLicenses;
-    document.getElementById('totalViews').textContent = totalViews;
-    document.getElementById('apiCalls').textContent = totalApiCalls;
+    document.getElementById('totalProducts').textContent = totalProducts;
+    document.getElementById('totalSales').textContent = totalSales;
+    document.getElementById('totalRevenue').textContent = `$${totalRevenue}`;
     
     renderSites();
-    updateLicenseDropdown();
+    updateProductDropdown();
     
   } catch (error) {
     console.error('Error loading sites:', error);
@@ -1348,8 +1459,9 @@ function renderSites() {
     
     const siteUrl = `https://venonweb.netlify.app/#${site.id}`;
     const views = site.views || 0;
-    const licensesCount = site.licensesCount || 0;
-    const apiCalls = site.apiCalls || 0;
+    const productsCount = site.productsCount || 0;
+    const sales = site.totalSales || 0;
+    const revenue = site.totalRevenue || 0;
     
     siteCard.innerHTML = `
       <div class="site-header">
@@ -1357,26 +1469,26 @@ function renderSites() {
           <div class="site-name">${site.name}</div>
           <p class="card-desc">${site.description || 'No description'}</p>
           <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.25rem;">
-            <i class="fas fa-tag"></i> ${site.category || 'scripts'}
+            <i class="fas fa-palette"></i> <span style="color: ${site.color || '#6c5ce7'}">${site.color || '#6c5ce7'}</span>
           </div>
         </div>
-        <div class="site-status ${site.active ? 'status-active' : 'status-inactive'}">
-          ${site.active ? 'Active' : 'Inactive'}
+        <div class="site-status ${site.active !== false ? 'status-active' : 'status-inactive'}">
+          ${site.active !== false ? 'Active' : 'Inactive'}
         </div>
       </div>
       
       <div class="site-stats">
         <div class="site-stat">
-          <div class="stat-value">${views}</div>
-          <div class="stat-label">Views</div>
+          <div class="stat-value">${productsCount}</div>
+          <div class="stat-label">Products</div>
         </div>
         <div class="site-stat">
-          <div class="stat-value">${licensesCount}</div>
-          <div class="stat-label">Licenses</div>
+          <div class="stat-value">${sales}</div>
+          <div class="stat-label">Sales</div>
         </div>
         <div class="site-stat">
-          <div class="stat-value">${apiCalls}</div>
-          <div class="stat-label">API Calls</div>
+          <div class="stat-value">$${revenue}</div>
+          <div class="stat-label">Revenue</div>
         </div>
       </div>
       
@@ -1390,6 +1502,9 @@ function renderSites() {
         </button>
         <button class="btn btn-success btn-small" onclick="viewSite('${site.id}')">
           <i class="fas fa-eye"></i> View
+        </button>
+        <button class="btn btn-warning btn-small" onclick="editSite('${site.id}')">
+          <i class="fas fa-edit"></i> Edit
         </button>
         <button class="btn btn-danger btn-small" onclick="deleteSite('${site.id}', '${site.name}')">
           <i class="fas fa-trash"></i> Delete
@@ -1410,8 +1525,9 @@ async function createSite() {
   
   const name = document.getElementById('siteName').value.trim();
   const description = document.getElementById('siteDescription').value.trim();
-  const category = document.getElementById('siteCategory').value;
+  const color = document.getElementById('siteColor').value;
   const alert = document.getElementById('createSiteAlert');
+  const createBtn = document.getElementById('createSiteBtn');
   
   if (!name) {
     showAlert(alert, 'error', 'Please enter a marketplace name');
@@ -1429,47 +1545,50 @@ async function createSite() {
   }
   
   try {
-    showAlert(alert, 'warning', 'Creating marketplace...', false);
+    createBtn.disabled = true;
+    createBtn.innerHTML = '<div class="loading"></div> Creating...';
     
     const siteId = generateSiteId(name);
     const siteData = {
       name: name,
       description: description,
-      category: category,
+      color: color,
       owner: currentUser.uid,
       ownerName: userData.username || 'Unknown',
       createdAt: Date.now(),
       updatedAt: Date.now(),
-      licensesCount: 0,
+      productsCount: 0,
+      totalSales: 0,
+      totalRevenue: 0,
       views: 0,
-      apiCalls: 0,
       active: true,
       url: `https://venonweb.netlify.app/#${siteId}`
     };
     
     await database.ref('sites/' + siteId).set(siteData);
     
-    // Update user's sites count
-    const newSitesCount = sites.length + 1;
+    const newSitesCount = (userData.sitesCount || 0) + 1;
     await database.ref('users/' + currentUser.uid + '/sitesCount').set(newSitesCount);
+    userData.sitesCount = newSitesCount;
     
-    // Clear form
     document.getElementById('siteName').value = '';
     document.getElementById('siteDescription').value = '';
     
     showAlert(alert, 'success', 'Marketplace created successfully!');
     
-    setTimeout(() => {
-      loadSites();
-    }, 500);
+    await loadSites();
     
   } catch (error) {
     showAlert(alert, 'error', 'Error creating marketplace: ' + error.message);
+    console.error('Create site error:', error);
+  } finally {
+    createBtn.disabled = false;
+    createBtn.innerHTML = '<i class="fas fa-plus"></i> Create Marketplace';
   }
 }
 
 async function deleteSite(siteId, siteName) {
-  if (!currentUser || !confirm(`Are you sure you want to delete "${siteName}"? This will also delete all associated licenses.`)) {
+  if (!currentUser || !confirm(`Are you sure you want to delete "${siteName}"? This will also delete all associated products.`)) {
     return;
   }
   
@@ -1488,30 +1607,32 @@ async function deleteSite(siteId, siteName) {
       return;
     }
     
-    // Delete site
     await siteRef.remove();
     
-    // Delete associated licenses
-    const licensesSnapshot = await database.ref('licenses')
+    const updates = {};
+    
+    const productsSnapshot = await database.ref('products')
       .orderByChild('siteId')
       .equalTo(siteId)
       .once('value');
     
-    if (licensesSnapshot.exists()) {
-      const updates = {};
-      licensesSnapshot.forEach(licenseSnapshot => {
-        updates[`licenses/${licenseSnapshot.key}`] = null;
+    if (productsSnapshot.exists()) {
+      productsSnapshot.forEach(productSnapshot => {
+        updates[`products/${productSnapshot.key}`] = null;
       });
+    }
+    
+    if (Object.keys(updates).length > 0) {
       await database.ref().update(updates);
     }
     
-    // Update user's sites count
     await database.ref('users/' + currentUser.uid + '/sitesCount').set(sites.length - 1);
     
-    alert('Marketplace and all associated licenses deleted successfully!');
+    alert('Marketplace and all associated products deleted successfully!');
     loadSites();
-    if (document.getElementById('licensesTab').classList.contains('active')) {
-      loadLicenses();
+    
+    if (document.getElementById('productsTab').classList.contains('active')) {
+      loadProducts();
     }
     
   } catch (error) {
@@ -1519,219 +1640,245 @@ async function deleteSite(siteId, siteName) {
   }
 }
 
-// ===================== LICENSE FUNCTIONS =====================
-function updateLicenseForm() {
-  const siteSelect = document.getElementById('licenseSiteSelect');
-  const generateBtn = document.getElementById('generateLicenseBtn');
+// ===================== PRODUCT FUNCTIONS =====================
+function updateProductForm() {
+  const siteSelect = document.getElementById('productSiteSelect');
+  const createBtn = document.getElementById('createProductBtn');
   
   if (siteSelect.value) {
-    generateBtn.disabled = false;
+    createBtn.disabled = false;
   } else {
-    generateBtn.disabled = true;
+    createBtn.disabled = true;
   }
 }
 
-function updateLicenseDropdown() {
-  const siteSelect = document.getElementById('licenseSiteSelect');
+function updateProductDropdown() {
+  const siteSelect = document.getElementById('productSiteSelect');
   siteSelect.innerHTML = '<option value="">-- Select a marketplace --</option>';
   
   sites.forEach(site => {
     const option = document.createElement('option');
     option.value = site.id;
-    option.textContent = `${site.name} (${site.licensesCount || 0} licenses)`;
+    option.textContent = `${site.name} (${site.productsCount || 0} products)`;
     siteSelect.appendChild(option);
   });
 }
 
-async function generateLicenses() {
-  const siteId = document.getElementById('licenseSiteSelect').value;
-  const count = parseInt(document.getElementById('licenseCount').value) || 1;
-  const expirationDays = parseInt(document.getElementById('licenseExpiration').value) || 30;
-  
-  if (!siteId) {
-    alert('Please select a marketplace');
-    return;
-  }
-  
-  if (count < 1 || count > 10) {
-    alert('You can generate 1-10 licenses at a time');
-    return;
-  }
-  
-  const site = sites.find(s => s.id === siteId);
-  if (!site) {
-    alert('Selected marketplace not found');
-    return;
-  }
-  
-  try {
-    const generatedKeys = [];
-    
-    for (let i = 0; i < count; i++) {
-      const licenseKey = generateLicenseKey();
-      const licenseId = generateRandomKey(16);
-      const expiresAt = expirationDays > 0 ? Date.now() + (expirationDays * 24 * 60 * 60 * 1000) : null;
-      
-      const licenseData = {
-        key: licenseKey,
-        siteId: siteId,
-        siteName: site.name,
-        owner: currentUser.uid,
-        ownerName: userData.username || 'Unknown',
-        createdAt: Date.now(),
-        expiresAt: expiresAt,
-        status: 'active',
-        hwidLocked: false,
-        lastValidated: null,
-        validationCount: 0
-      };
-      
-      await database.ref('licenses/' + licenseId).set(licenseData);
-      generatedKeys.push(licenseKey);
-      
-      // Update site's license count
-      const newLicenseCount = (site.licensesCount || 0) + 1;
-      await database.ref('sites/' + siteId + '/licensesCount').set(newLicenseCount);
-      site.licensesCount = newLicenseCount;
-    }
-    
-    // Update user's total license count
-    const newTotalLicenses = (userData.totalLicenses || 0) + count;
-    await database.ref('users/' + currentUser.uid + '/totalLicenses').set(newTotalLicenses);
-    
-    // Show success modal
-    document.getElementById('generatedLicenses').innerHTML = generatedKeys
-      .map(key => `<div style="margin-bottom: 0.5rem; padding: 0.5rem; background: var(--bg); border-radius: 6px; font-family: monospace;">${key}</div>`)
-      .join('');
-    
-    showModal('licenseModal');
-    
-    // Update stats
-    loadSites();
-    
-  } catch (error) {
-    alert('Error generating licenses: ' + error.message);
-  }
-}
-
-async function loadLicenses() {
+async function loadProducts() {
   if (!currentUser) return;
   
   try {
-    const licensesSnapshot = await database.ref('licenses')
+    const productsSnapshot = await database.ref('products')
       .orderByChild('owner')
       .equalTo(currentUser.uid)
       .once('value');
     
-    licenses = [];
-    const container = document.getElementById('licensesList');
+    products = [];
+    const container = document.getElementById('productsList');
     
-    if (!licensesSnapshot.exists() || licensesSnapshot.numChildren() === 0) {
+    if (!productsSnapshot.exists() || productsSnapshot.numChildren() === 0) {
       container.innerHTML = `
         <div class="empty-state">
-          <i class="fas fa-key"></i>
-          <h3>No licenses yet</h3>
-          <p>Generate your first license for a marketplace!</p>
+          <i class="fas fa-box"></i>
+          <h3>No products yet</h3>
+          <p>Create your first product for a marketplace!</p>
         </div>
       `;
       return;
     }
     
-    let html = '<h2 style="margin-bottom: 1rem;">Your Licenses</h2>';
+    container.innerHTML = '';
     
-    licensesSnapshot.forEach((childSnapshot) => {
-      const license = childSnapshot.val();
-      license.id = childSnapshot.key;
-      licenses.push(license);
+    productsSnapshot.forEach((childSnapshot) => {
+      const product = childSnapshot.val();
+      product.id = childSnapshot.key;
+      products.push(product);
       
-      const expiresText = license.expiresAt 
-        ? `Expires: ${formatDate(license.expiresAt)}`
-        : 'Lifetime license';
+      const site = sites.find(s => s.id === product.siteId);
+      const siteName = site ? site.name : 'Unknown Marketplace';
       
-      html += `
-        <div class="license-item">
-          <div>
-            <div style="font-weight: 600; margin-bottom: 0.25rem;">${license.siteName}</div>
-            <div class="license-key">${license.key}</div>
-            <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.25rem;">
-              Created: ${formatDate(license.createdAt)} • ${expiresText}
-            </div>
+      const productCard = document.createElement('div');
+      productCard.className = 'product-card';
+      
+      productCard.innerHTML = `
+        <div class="product-header">
+          <div class="product-name">${product.name}</div>
+          <div class="product-price">${product.price} Robux</div>
+        </div>
+        
+        <div class="product-description">${product.description || 'No description'}</div>
+        
+        <div class="product-details">
+          <div class="product-detail">
+            <i class="fas fa-store"></i> ${siteName}
           </div>
-          <div>
-            <span class="site-status ${license.status === 'active' ? 'status-active' : 'status-inactive'}" style="margin-right: 0.5rem;">
-              ${license.status}
-            </span>
-            <button class="btn btn-icon btn-small" onclick="copyLicense('${license.key}')" title="Copy License Key">
-              <i class="fas fa-copy"></i>
-            </button>
-            <button class="btn btn-icon btn-small" onclick="revokeLicense('${license.id}')" title="Revoke License">
-              <i class="fas fa-ban"></i>
-            </button>
+          <div class="product-detail">
+            <i class="fas fa-gamepad"></i> GamePass: ${product.gamepassId}
+          </div>
+          <div class="product-detail">
+            <i class="fas fa-tag"></i> ${product.category || 'script'}
+          </div>
+          <div class="product-detail">
+            <i class="fas fa-shopping-cart"></i> Sales: ${product.sales || 0}
           </div>
         </div>
+        
+        <div class="product-actions">
+          <button class="btn btn-secondary btn-small" onclick="copyProductLink('${product.id}')">
+            <i class="fas fa-copy"></i> Copy Link
+          </button>
+          <button class="btn btn-warning btn-small" onclick="editProduct('${product.id}')">
+            <i class="fas fa-edit"></i> Edit
+          </button>
+          <button class="btn btn-danger btn-small" onclick="deleteProduct('${product.id}', '${product.name}')">
+            <i class="fas fa-trash"></i> Delete
+          </button>
+        </div>
+        
+        <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border); font-size: 0.8rem; color: var(--text-muted);">
+          <i class="fas fa-calendar"></i> Created: ${formatDate(product.createdAt)}
+        </div>
       `;
+      
+      container.appendChild(productCard);
     });
     
-    container.innerHTML = html;
-    
   } catch (error) {
-    console.error('Error loading licenses:', error);
+    console.error('Error loading products:', error);
   }
 }
 
-// ===================== ANALYTICS FUNCTIONS =====================
-async function loadAnalytics() {
+async function createProduct() {
   if (!currentUser) return;
   
-  try {
-    // Calculate totals
-    let totalCustomers = 0;
-    let totalRevenue = 0;
-    
-    // For now, use mock data - in a real app, you'd query your database
-    const customers = userData.totalCustomers || 0;
-    const revenue = userData.totalRevenue || 0;
-    
-    document.getElementById('totalCustomers').textContent = customers;
-    document.getElementById('totalRevenue').textContent = `$${revenue}`;
-    document.getElementById('conversionRate').textContent = sites.length > 0 ? '2.5%' : '0%';
-    
-  } catch (error) {
-    console.error('Error loading analytics:', error);
-  }
-}
-
-// ===================== SETTINGS FUNCTIONS =====================
-async function updateProfile() {
-  const username = document.getElementById('settingsUsername').value.trim();
+  const siteId = document.getElementById('productSiteSelect').value;
+  const name = document.getElementById('productName').value.trim();
+  const description = document.getElementById('productDescription').value.trim();
+  const price = parseInt(document.getElementById('productPrice').value);
+  const gamepassId = document.getElementById('gamepassId').value.trim();
+  const gameUrl = document.getElementById('gameUrl').value.trim();
+  const category = document.getElementById('productCategory').value;
+  const alert = document.getElementById('createProductAlert');
+  const createBtn = document.getElementById('createProductBtn');
   
-  if (!username) {
-    alert('Username cannot be empty');
+  if (!siteId) {
+    showAlert(alert, 'error', 'Please select a marketplace');
+    return;
+  }
+  
+  if (!name) {
+    showAlert(alert, 'error', 'Please enter a product name');
+    return;
+  }
+  
+  if (!price || price < 1) {
+    showAlert(alert, 'error', 'Please enter a valid price (min 1 Robux)');
+    return;
+  }
+  
+  if (!gamepassId) {
+    showAlert(alert, 'error', 'Please enter a GamePass ID');
+    return;
+  }
+  
+  const site = sites.find(s => s.id === siteId);
+  if (!site) {
+    showAlert(alert, 'error', 'Selected marketplace not found');
     return;
   }
   
   try {
-    await database.ref('users/' + currentUser.uid + '/username').set(username);
-    userData.username = username;
-    document.getElementById('userName').textContent = username;
+    createBtn.disabled = true;
+    createBtn.innerHTML = '<div class="loading"></div> Creating...';
     
-    // Update username in all sites
-    const updates = {};
-    sites.forEach(site => {
-      updates[`sites/${site.id}/ownerName`] = username;
-    });
+    const productId = generateRandomKey(16);
+    const productData = {
+      id: productId,
+      name: name,
+      description: description,
+      price: price,
+      gamepassId: gamepassId,
+      gameUrl: gameUrl || null,
+      category: category,
+      siteId: siteId,
+      siteName: site.name,
+      owner: currentUser.uid,
+      ownerName: userData.username || 'Unknown',
+      createdAt: Date.now(),
+      updatedAt: Date.now(),
+      sales: 0,
+      revenue: 0,
+      active: true
+    };
     
-    if (Object.keys(updates).length > 0) {
-      await database.ref().update(updates);
-    }
+    await database.ref('products/' + productId).set(productData);
     
-    alert('Profile updated successfully!');
+    const newProductsCount = (site.productsCount || 0) + 1;
+    await database.ref('sites/' + siteId + '/productsCount').set(newProductsCount);
+    
+    const newTotalProducts = (userData.productsCount || 0) + 1;
+    await database.ref('users/' + currentUser.uid + '/productsCount').set(newTotalProducts);
+    userData.productsCount = newTotalProducts;
+    
+    document.getElementById('productName').value = '';
+    document.getElementById('productDescription').value = '';
+    document.getElementById('productPrice').value = '';
+    document.getElementById('gamepassId').value = '';
+    document.getElementById('gameUrl').value = '';
+    
+    showAlert(alert, 'success', 'Product created successfully!');
+    
+    await loadSites();
+    await loadProducts();
     
   } catch (error) {
-    alert('Error updating profile: ' + error.message);
+    showAlert(alert, 'error', 'Error creating product: ' + error.message);
+    console.error('Create product error:', error);
+  } finally {
+    createBtn.disabled = false;
+    createBtn.innerHTML = '<i class="fas fa-box"></i> Create Product';
   }
 }
 
+async function deleteProduct(productId, productName) {
+  if (!currentUser || !confirm(`Are you sure you want to delete "${productName}"?`)) {
+    return;
+  }
+  
+  try {
+    const productRef = database.ref('products/' + productId);
+    const productSnapshot = await productRef.once('value');
+    
+    if (!productSnapshot.exists()) {
+      alert('Product not found');
+      return;
+    }
+    
+    const product = productSnapshot.val();
+    if (product.owner !== currentUser.uid) {
+      alert('You do not have permission to delete this product');
+      return;
+    }
+    
+    await productRef.remove();
+    
+    const site = sites.find(s => s.id === product.siteId);
+    if (site) {
+      const newProductsCount = Math.max(0, (site.productsCount || 0) - 1);
+      await database.ref('sites/' + product.siteId + '/productsCount').set(newProductsCount);
+    }
+    
+    await database.ref('users/' + currentUser.uid + '/productsCount').set(Math.max(0, (userData.productsCount || 0) - 1));
+    
+    alert('Product deleted successfully!');
+    loadProducts();
+    
+  } catch (error) {
+    alert('Error deleting product: ' + error.message);
+  }
+}
+
+// ===================== API FUNCTIONS =====================
 async function generateApiKey() {
   if (!currentUser) return;
   
@@ -1745,6 +1892,35 @@ async function generateApiKey() {
     
   } catch (error) {
     alert('Error generating API key: ' + error.message);
+  }
+}
+
+function copyApiKey() {
+  const apiKey = document.getElementById('apiKeyDisplay').textContent;
+  if (apiKey && apiKey !== 'Click generate to create an API key') {
+    navigator.clipboard.writeText(apiKey).then(() => {
+      alert('API key copied to clipboard!');
+    });
+  } else {
+    alert('Please generate an API key first');
+  }
+}
+
+// ===================== ANALYTICS FUNCTIONS =====================
+async function loadAnalytics() {
+  if (!currentUser) return;
+  
+  try {
+    const customers = userData.totalCustomers || 0;
+    const revenue = userData.totalRevenue || 0;
+    const sales = userData.totalSales || 0;
+    
+    document.getElementById('totalCustomers').textContent = customers;
+    document.getElementById('conversionRate').textContent = sites.length > 0 ? '2.5%' : '0%';
+    document.getElementById('avgOrder').textContent = sales > 0 ? `$${(revenue / sales).toFixed(2)}` : '$0';
+    
+  } catch (error) {
+    console.error('Error loading analytics:', error);
   }
 }
 
@@ -1787,14 +1963,6 @@ function generateSiteId(name) {
   return `${nameSlug}_${timestamp}_${random}`;
 }
 
-function generateLicenseKey() {
-  const parts = [];
-  for (let i = 0; i < 4; i++) {
-    parts.push(Math.random().toString(36).substring(2, 10).toUpperCase());
-  }
-  return parts.join('-');
-}
-
 function generateRandomKey(length) {
   const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   let result = '';
@@ -1823,22 +1991,10 @@ function copyUrl(siteId) {
   });
 }
 
-function copyLicense(key) {
-  navigator.clipboard.writeText(key).then(() => {
-    alert('License key copied to clipboard!');
-  }).catch(err => {
-    console.error('Failed to copy: ', err);
-  });
-}
-
-function copyLicenses() {
-  const licensesDiv = document.getElementById('generatedLicenses');
-  const licenseKeys = Array.from(licensesDiv.querySelectorAll('div'))
-    .map(div => div.textContent)
-    .join('\n');
-  
-  navigator.clipboard.writeText(licenseKeys).then(() => {
-    alert('All license keys copied to clipboard!');
+function copyProductLink(productId) {
+  const url = `https://venonweb.netlify.app/#product-${productId}`;
+  navigator.clipboard.writeText(url).then(() => {
+    alert('Product link copied to clipboard!');
   });
 }
 
@@ -1847,24 +2003,143 @@ function viewSite(siteId) {
   window.open(url, '_blank');
 }
 
-async function revokeLicense(licenseId) {
-  if (!confirm('Are you sure you want to revoke this license?')) return;
-  
-  try {
-    await database.ref('licenses/' + licenseId + '/status').set('revoked');
-    alert('License revoked successfully!');
-    loadLicenses();
-  } catch (error) {
-    alert('Error revoking license: ' + error.message);
+function editSite(siteId) {
+  const site = sites.find(s => s.id === siteId);
+  if (site) {
+    document.getElementById('siteName').value = site.name;
+    document.getElementById('siteDescription').value = site.description || '';
+    document.getElementById('siteColor').value = site.color || '#6c5ce7';
+    
+    const createBtn = document.getElementById('createSiteBtn');
+    createBtn.innerHTML = '<i class="fas fa-save"></i> Update Marketplace';
+    createBtn.onclick = function() { updateSite(siteId); };
+    
+    showAlert(document.getElementById('createSiteAlert'), 'warning', 'Editing marketplace. Click "Update Marketplace" to save changes.');
   }
 }
 
-function showModal(modalId) {
-  document.getElementById(modalId).classList.remove('hidden');
+async function updateSite(siteId) {
+  const name = document.getElementById('siteName').value.trim();
+  const description = document.getElementById('siteDescription').value.trim();
+  const color = document.getElementById('siteColor').value;
+  const alert = document.getElementById('createSiteAlert');
+  const createBtn = document.getElementById('createSiteBtn');
+  
+  if (!name) {
+    showAlert(alert, 'error', 'Please enter a marketplace name');
+    return;
+  }
+  
+  try {
+    createBtn.disabled = true;
+    createBtn.innerHTML = '<div class="loading"></div> Updating...';
+    
+    await database.ref('sites/' + siteId).update({
+      name: name,
+      description: description,
+      color: color,
+      updatedAt: Date.now()
+    });
+    
+    showAlert(alert, 'success', 'Marketplace updated successfully!');
+    
+    createBtn.innerHTML = '<i class="fas fa-plus"></i> Create Marketplace';
+    createBtn.onclick = createSite;
+    
+    document.getElementById('siteName').value = '';
+    document.getElementById('siteDescription').value = '';
+    document.getElementById('siteColor').value = '#6c5ce7';
+    
+    await loadSites();
+    
+  } catch (error) {
+    showAlert(alert, 'error', 'Error updating marketplace: ' + error.message);
+  } finally {
+    createBtn.disabled = false;
+  }
 }
 
-function closeModal() {
-  document.querySelectorAll('.modal').forEach(modal => modal.classList.add('hidden'));
+function editProduct(productId) {
+  const product = products.find(p => p.id === productId);
+  if (product) {
+    document.getElementById('productSiteSelect').value = product.siteId;
+    document.getElementById('productName').value = product.name;
+    document.getElementById('productDescription').value = product.description || '';
+    document.getElementById('productPrice').value = product.price;
+    document.getElementById('gamepassId').value = product.gamepassId;
+    document.getElementById('gameUrl').value = product.gameUrl || '';
+    document.getElementById('productCategory').value = product.category || 'script';
+    
+    updateProductForm();
+    
+    const createBtn = document.getElementById('createProductBtn');
+    createBtn.innerHTML = '<i class="fas fa-save"></i> Update Product';
+    createBtn.onclick = function() { updateProduct(productId); };
+    
+    showAlert(document.getElementById('createProductAlert'), 'warning', 'Editing product. Click "Update Product" to save changes.');
+  }
+}
+
+async function updateProduct(productId) {
+  const name = document.getElementById('productName').value.trim();
+  const description = document.getElementById('productDescription').value.trim();
+  const price = parseInt(document.getElementById('productPrice').value);
+  const gamepassId = document.getElementById('gamepassId').value.trim();
+  const gameUrl = document.getElementById('gameUrl').value.trim();
+  const category = document.getElementById('productCategory').value;
+  const alert = document.getElementById('createProductAlert');
+  const createBtn = document.getElementById('createProductBtn');
+  
+  if (!name) {
+    showAlert(alert, 'error', 'Please enter a product name');
+    return;
+  }
+  
+  if (!price || price < 1) {
+    showAlert(alert, 'error', 'Please enter a valid price (min 1 Robux)');
+    return;
+  }
+  
+  if (!gamepassId) {
+    showAlert(alert, 'error', 'Please enter a GamePass ID');
+    return;
+  }
+  
+  try {
+    createBtn.disabled = true;
+    createBtn.innerHTML = '<div class="loading"></div> Updating...';
+    
+    await database.ref('products/' + productId).update({
+      name: name,
+      description: description,
+      price: price,
+      gamepassId: gamepassId,
+      gameUrl: gameUrl || null,
+      category: category,
+      updatedAt: Date.now()
+    });
+    
+    showAlert(alert, 'success', 'Product updated successfully!');
+    
+    createBtn.innerHTML = '<i class="fas fa-box"></i> Create Product';
+    createBtn.onclick = createProduct;
+    
+    document.getElementById('productName').value = '';
+    document.getElementById('productDescription').value = '';
+    document.getElementById('productPrice').value = '';
+    document.getElementById('gamepassId').value = '';
+    document.getElementById('gameUrl').value = '';
+    document.getElementById('productSiteSelect').value = '';
+    
+    updateProductForm();
+    
+    await loadProducts();
+    
+  } catch (error) {
+    showAlert(alert, 'error', 'Error updating product: ' + error.message);
+  } finally {
+    createBtn.disabled = false;
+  }
 }
 
 // ===================== INITIALIZATION =====================
@@ -1912,15 +2187,12 @@ window.deleteSite = deleteSite;
 window.copyUrl = copyUrl;
 window.viewSite = viewSite;
 window.switchTab = switchTab;
-window.generateLicenses = generateLicenses;
-window.copyLicenses = copyLicenses;
-window.copyLicense = copyLicense;
-window.revokeLicense = revokeLicense;
-window.updateProfile = updateProfile;
+window.updateProductForm = updateProductForm;
+window.createProduct = createProduct;
+window.deleteProduct = deleteProduct;
+window.copyProductLink = copyProductLink;
 window.generateApiKey = generateApiKey;
-window.updateLicenseForm = updateLicenseForm;
-window.showModal = showModal;
-window.closeModal = closeModal;
+window.copyApiKey = copyApiKey;
 </script>
 </body>
 </html>
